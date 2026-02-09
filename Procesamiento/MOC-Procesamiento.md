@@ -3,7 +3,7 @@
 **Tags:** #Encuadre
 ## Profesor
 **Nombre:** Luna Lozano Pablo Samuel
-(Dr. Pablo Samuel Luna Lozano)
+*(Dr. Pablo Samuel Luna Lozano)*
 **Correo:** paluna@uv.mx
 ## Horario
 **Lunes** 16:00-16:59

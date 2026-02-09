@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Procesamiento/MOC-Procesamiento.md",
+                "file": "Pensamiento/MOC-Pensamiento.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MOC-Procesamiento"
+              "title": "MOC-Pensamiento"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Procesamiento/MOC-Procesamiento.md",
+                "file": "Pensamiento/MOC-Pensamiento.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes de MOC-Procesamiento"
+              "title": "Enlaces entrantes de MOC-Pensamiento"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Procesamiento/MOC-Procesamiento.md",
+                "file": "Pensamiento/MOC-Pensamiento.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Enlaces salientes de MOC-Procesamiento"
+              "title": "Enlaces salientes de MOC-Pensamiento"
             }
           },
           {
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Procesamiento/MOC-Procesamiento.md",
+                "file": "Pensamiento/MOC-Pensamiento.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de MOC-Procesamiento"
+              "title": "Esquema de MOC-Pensamiento"
             }
           }
         ]
@@ -198,32 +198,36 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "9bdf79c26edcd664",
+  "active": "ba3a2157ec29bf7a",
   "lastOpenFiles": [
+    "Pensamiento/Temas",
+    "Literacidad/MOC-Literacidad.md",
+    "Pensamiento/MOC-Pensamiento.md",
+    "Literacidad/Temas",
+    "Procesamiento/Temas/Introduccion.md",
+    "Literacidad",
+    "Pensamiento",
+    "Telecomunicacion/Temas",
+    "Telecomunicacion/Clases",
+    "Sistemas/Temas",
+    "Sistemas/Clases",
+    "Interfaces/Temas",
+    "Interfaces/Clases",
+    "Procesamiento/Clases/Procesamiento-2026-02-09.md",
+    "Procesamiento/MOC-Procesamiento.md",
     "assets/plantillas/Apunte.md.md",
     "assets/plantillas/Encuadre.md.md",
     "tmp.md",
     "Sexto-Semestre.md",
-    "Materia-2026-02-09.md",
     "assets/plantillas/Materia-{date}.md",
     "sistemas-control-1.md",
     "Procesamiento/IBFO-18019-Procesamiento-de-Senales-Biomedicas.pdf",
-    "Procesamiento/MOC-Procesamiento.md",
     "Fecha inválida.md",
     "2026-02-09.md",
-    "Procesamiento/Temas",
-    "Procesamiento/Clases",
     "Telecomunicacion/MOC-Telecomunicacion.md",
-    "Procesamiento",
-    "Telecomunicacion/IBFO-18021-Tecnologia-para-Telecomunicacion-de-Datos.pdf",
     "Interfaces/MOC-Interfaces.md",
-    "Telecomunicacion",
-    "Interfaces/IBFO-18022-Interfaces-Hombre-Maquina.pdf",
     "Sistemas/MOC-Sistemas.md",
-    "Sistemas/IBFO-18020-Sistemas-de-control.pdf",
-    "Interfaces",
     "Interfaces/Interfaces-hombre-maquina-1.md",
-    "assets/plantillas/Formato IEEE.md",
-    "Sistemas"
+    "assets/plantillas/Formato IEEE.md"
   ]
 }
