@@ -1,0 +1,74 @@
+/* uv-ieee.css - Estilo para Ingeniería Biomédica UV */
+
+/* 1. Contenedor Principal de Doble Columna */
+.ieee-paper {
+  column-count: 2;
+  column-gap: 20px;
+  column-rule: 1px solid #eee;
+  text-align: justify;
+  font-family: 'Times New Roman', serif;
+  font-size: 16px;
+}
+
+/* 2. Romper Columnas */
+.span-all {
+  column-span: all;
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* 3. Mantener unido */
+.keep-together {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 15px;
+  display: inline-block;
+  width: 100%;
+}
+
+/* 4. Referencias IEEE */
+.ieee-ref-list {
+  list-style-type: none;
+  counter-reset: ref-counter;
+  padding: 0;
+}
+.ieee-ref-list li {
+  counter-increment: ref-counter;
+  margin-bottom: 10px;
+  text-indent: -25px;
+  margin-left: 25px;
+}
+.ieee-ref-list li::before {
+  content: "[" counter(ref-counter) "] ";
+  font-weight: bold;
+  color: #305496; /* Color azul también en los números de referencia */
+}
+
+/* 5. Mermaid y Tablas */
+.mermaid {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+/* --- NUEVO: 6. COLORES DE SUBTÍTULOS --- */
+
+/* Título Principal del documento (H1) */
+h1 {
+  color: #305496; /* Azul de tu imagen */
+}
+
+/* Subtítulos dentro del paper (H2, H3) Ej: "I. Introducción" */
+.ieee-paper h2, 
+.ieee-paper h3,
+.ieee-paper h4 {
+  color: #305496; /* Azul de tu imagen */
+  border-bottom: 1px solid #d9e2f3; /* (Opcional) Línea delgada azul pálido bajo el título */
+  padding-bottom: 2px;
+  margin-top: 15px;
+}
+
+/* Color para negritas específicas en la portada si lo deseas */
+.azul-uv {
+    color: #305496;
+}

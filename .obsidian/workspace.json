@@ -1,0 +1,229 @@
+{
+  "main": {
+    "id": "cf82c2559ce6e16e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b8c453c2f5dfe0cd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0951c91c45b72f22",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "assets/plantillas/Apunte.md.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Apunte.md"
+            }
+          },
+          {
+            "id": "9bdf79c26edcd664",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Procesamiento/MOC-Procesamiento.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "MOC-Procesamiento"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c07cdfce26f3df1c",
+    "type": "split",
+    "children": [
+      {
+        "id": "562f071fb8c06c31",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ba3a2157ec29bf7a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de archivos"
+            }
+          },
+          {
+            "id": "3a3e814513afbd9c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "467cb05721a9f966",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bd0189a1c08c287f",
+    "type": "split",
+    "children": [
+      {
+        "id": "4df03733e94a516d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9bc6618f4c474525",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Procesamiento/MOC-Procesamiento.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes de MOC-Procesamiento"
+            }
+          },
+          {
+            "id": "d9f0cc43335909c8",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Procesamiento/MOC-Procesamiento.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes de MOC-Procesamiento"
+            }
+          },
+          {
+            "id": "d7b7eab10ca19024",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "38d51136e6acdb70",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "b4f33df58be2eac9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Procesamiento/MOC-Procesamiento.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Esquema de MOC-Procesamiento"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false
+    }
+  },
+  "active": "9bdf79c26edcd664",
+  "lastOpenFiles": [
+    "assets/plantillas/Apunte.md.md",
+    "assets/plantillas/Encuadre.md.md",
+    "tmp.md",
+    "Sexto-Semestre.md",
+    "Materia-2026-02-09.md",
+    "assets/plantillas/Materia-{date}.md",
+    "sistemas-control-1.md",
+    "Procesamiento/IBFO-18019-Procesamiento-de-Senales-Biomedicas.pdf",
+    "Procesamiento/MOC-Procesamiento.md",
+    "Fecha inválida.md",
+    "2026-02-09.md",
+    "Procesamiento/Temas",
+    "Procesamiento/Clases",
+    "Telecomunicacion/MOC-Telecomunicacion.md",
+    "Procesamiento",
+    "Telecomunicacion/IBFO-18021-Tecnologia-para-Telecomunicacion-de-Datos.pdf",
+    "Interfaces/MOC-Interfaces.md",
+    "Telecomunicacion",
+    "Interfaces/IBFO-18022-Interfaces-Hombre-Maquina.pdf",
+    "Sistemas/MOC-Sistemas.md",
+    "Sistemas/IBFO-18020-Sistemas-de-control.pdf",
+    "Interfaces",
+    "Interfaces/Interfaces-hombre-maquina-1.md",
+    "assets/plantillas/Formato IEEE.md",
+    "Sistemas"
+  ]
+}
