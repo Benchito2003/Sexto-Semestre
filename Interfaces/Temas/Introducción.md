@@ -1,3 +1,13 @@
+---
+tags:
+  - Tema
+Materia: "[[MOC-Interfaces|Interfaces Hombre-Maquina]]"
+---
+
+# Introducción
+## Visto en clase:
+- [[Interfaces-2026-02-09]]
+## Contenido
 - Necesitamos hacer equipos de 5 integrantes
 - IDE arduino
 - VSCode (junto con lo necesario para usar C#)
@@ -26,4 +36,7 @@ Medios de Entrada Convencionales de interfaces hombre maquina:
 Medios de entrada No Convencionales de interfaces hombre-máquina:
 1. A través de señas o movimiento (entrada).
 2. Señales  fisiológicas como las generadas por contracciones musculares, del cerebro o las generadas por los movimientos oculares (entrada).
-3. 
+
+## Resumen
+Explica el tema en 2–4 líneas como si se lo contaras a alguien
+## Notas

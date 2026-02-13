@@ -8,15 +8,14 @@
 **Lunes** 18:00-19:59
 **Martes** 18:00-19:59
 **Miércoles** 18:00-18:59
-
+## Clases
 ## Temas
 ## Porcentaje de evaluación
 
-| Criterio de evaluación | Porcentaje |
-| ---------------------- | ---------: |
-| crit 1                 |         x% |
-| crit 2                 |         x% |
-| crit 3                 |         x% |
+| Criterio de evaluación  | Porcentaje |
+| ----------------------- | ---------: |
+| Prácticas y actividades |        60% |
+| Exámenes parciales (2)  |        40% |
 
 ## Plan de estudio
 ![[IBFO-18021-Tecnologia-para-Telecomunicacion-de-Datos.pdf]]

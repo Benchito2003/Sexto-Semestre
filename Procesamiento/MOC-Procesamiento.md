@@ -10,9 +10,8 @@
 **Miércoles** 16:00-16:59
 **Jueves** 18:00-18:59
 **Viernes** 16:00-17:59
-
-## Temas
 ## Clases
+## Temas
 ## Porcentaje de evaluación
 
 | Criterio de evaluación | Porcentaje |

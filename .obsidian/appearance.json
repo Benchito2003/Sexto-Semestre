@@ -1,3 +1,5 @@
 {
-  "cssTheme": "Blue Topaz"
+  "cssTheme": "Blue Topaz",
+  "textFontFamily": "FiraCode Nerd Font,JetBrainsMono Nerd Font",
+  "monospaceFontFamily": "JetBrainsMono Nerd Font,Source Code Pro"
 }

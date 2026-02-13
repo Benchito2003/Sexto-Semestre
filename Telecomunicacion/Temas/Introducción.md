@@ -1,0 +1,2 @@
+- Vamos a trabajar en equipos, pero el profesor avisará cuando
+- Trabajaremos en EMINUS

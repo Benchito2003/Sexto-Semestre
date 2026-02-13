@@ -8,7 +8,7 @@
 **Lunes** 14:00-14:59
 **Miércoles** 14:00-15:59
 **Viernes** 14:00-15:59
-
+## Clases
 ## Temas
 
 ## Porcentaje de evaluación

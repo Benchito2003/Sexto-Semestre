@@ -6,6 +6,7 @@
 **Correo:** robaruch@uv.mx 
 ## Horario
 **Sábado** 07:00-06:59
+## Clases
 ## Temas
 ## Porcentaje de evaluación
 
@@ -16,3 +17,4 @@
 | crit 3                 |         x% |
 
 ## Plan de estudio
+![[P.E.-Pensamiento_critico-1-1.pdf]]

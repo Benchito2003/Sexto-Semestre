@@ -4,39 +4,38 @@
     "type": "split",
     "children": [
       {
-        "id": "b8c453c2f5dfe0cd",
+        "id": "fd4490aa81899681",
         "type": "tabs",
         "children": [
           {
-            "id": "0951c91c45b72f22",
+            "id": "40b37df7dfaf18e6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "assets/plantillas/Apunte.md.md",
+                "file": "Procesamiento/Temas/Clasificación de señales.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Apunte.md"
+              "title": "Clasificación de señales"
             }
           },
           {
-            "id": "9bdf79c26edcd664",
+            "id": "38b9554406a165d8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Pensamiento/MOC-Pensamiento.md",
+                "file": "Sistemas/Temas/Introduccion.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MOC-Pensamiento"
+              "title": "Introduccion"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Pensamiento/MOC-Pensamiento.md",
+                "file": "Telecomunicacion/MOC-Telecomunicacion.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +118,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes de MOC-Pensamiento"
+              "title": "Enlaces entrantes de MOC-Telecomunicacion"
             }
           },
           {
@@ -128,12 +127,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Pensamiento/MOC-Pensamiento.md",
+                "file": "Telecomunicacion/MOC-Telecomunicacion.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Enlaces salientes de MOC-Pensamiento"
+              "title": "Enlaces salientes de MOC-Telecomunicacion"
             }
           },
           {
@@ -171,13 +170,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Pensamiento/MOC-Pensamiento.md",
+                "file": "Telecomunicacion/MOC-Telecomunicacion.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de MOC-Pensamiento"
+              "title": "Esquema de MOC-Telecomunicacion"
             }
           }
         ]
@@ -198,36 +197,43 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "ba3a2157ec29bf7a",
+  "active": "40b37df7dfaf18e6",
   "lastOpenFiles": [
-    "Pensamiento/Temas",
-    "Literacidad/MOC-Literacidad.md",
-    "Pensamiento/MOC-Pensamiento.md",
-    "Literacidad/Temas",
-    "Procesamiento/Temas/Introduccion.md",
-    "Literacidad",
-    "Pensamiento",
-    "Telecomunicacion/Temas",
-    "Telecomunicacion/Clases",
-    "Sistemas/Temas",
-    "Sistemas/Clases",
-    "Interfaces/Temas",
-    "Interfaces/Clases",
-    "Procesamiento/Clases/Procesamiento-2026-02-09.md",
-    "Procesamiento/MOC-Procesamiento.md",
+    "Procesamiento/Clases/procesamiento-2026-02-12.md",
+    "Sistemas/Temas/Introduccion.md",
+    "Procesamiento/Temas/Funciones de probabilidad de estadística.md",
+    "Procesamiento/Temas/Clasificación de señales.md",
+    "assets/plantillas/Tema.md",
     "assets/plantillas/Apunte.md.md",
-    "assets/plantillas/Encuadre.md.md",
-    "tmp.md",
-    "Sexto-Semestre.md",
-    "assets/plantillas/Materia-{date}.md",
-    "sistemas-control-1.md",
-    "Procesamiento/IBFO-18019-Procesamiento-de-Senales-Biomedicas.pdf",
-    "Fecha inválida.md",
-    "2026-02-09.md",
-    "Telecomunicacion/MOC-Telecomunicacion.md",
+    "Procesamiento/MOC-Procesamiento.md",
+    "Procesamiento/Clases/procesamiento-2026-02-09.md",
+    "Procesamiento/Temas/señales.md",
+    "Procesamiento/Clases/procesamiento-2026-02-11.md",
+    "Pensamiento/PCSP-Evaluacion de actividades.pdf",
+    "Pensamiento/P.E.-Pensamiento_critico-1-1.pdf",
+    "Interfaces/Clases/interfaces-2026-02-11.md",
+    "Interfaces/Codigos/comunicacion.ino~",
+    "Interfaces/Temas/Velocidad de comunicación.md",
+    "Interfaces/Encuadre del curso.pdf",
+    "Interfaces/Clases/Interfaces-2026-02-09.md",
+    "Interfaces/Temas/Introducción.md",
+    "Interfaces/Codigos/comunicacion.ino",
+    "Interfaces/Codigos",
+    "Interfaces/codigos",
     "Interfaces/MOC-Interfaces.md",
+    "Sexto-Semestre.md",
     "Sistemas/MOC-Sistemas.md",
-    "Interfaces/Interfaces-hombre-maquina-1.md",
-    "assets/plantillas/Formato IEEE.md"
+    "Sistemas/Proyecto-sistemas.md",
+    "Sistemas/Clases/sistemas-2026-02-10.md",
+    "assets/plantillas/Reporte.md",
+    "Sin título.md",
+    "Sistemas/IBFO-18020-Sistemas-de-control.pdf",
+    "Materia-2026-02-10.md",
+    "assets/plantillas/link-sistemas.md",
+    "assets/plantillas/link-telecomunicacion.md",
+    "Telecomunicacion/Clases/Telecomunicacion-2026-02-09.md",
+    "Telecomunicacion/MOC-Telecomunicacion.md",
+    "Pensamiento/Temas",
+    "Literacidad/Temas"
   ]
 }

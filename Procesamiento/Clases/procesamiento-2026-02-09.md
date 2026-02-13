@@ -1,13 +1,13 @@
 ---
 tags:
   - Apunte
-Materia: Procesamiento
+Materia: "[[MOC-Procesamiento|Procesamiento de señales Biomédicas]]"
 Fecha: 2026-02-09
 ---
 
 
 ## Temas/Asuntos Tocados
-- [[Introduccion]]
+- [[Procesamiento/Temas/Introduccion]]
 
 ## Notas rápidas
 

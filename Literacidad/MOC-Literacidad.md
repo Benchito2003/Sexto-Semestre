@@ -5,6 +5,7 @@
 **Nombre:** *sin asignar*
 **Correo:** 
 ## Horario
+## Clases
 ## Temas
 ## Porcentaje de evaluación
 
