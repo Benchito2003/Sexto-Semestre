@@ -13,9 +13,8 @@ Fecha: 2026-02-12
 ## Notas rápidas
 - Vamos a trabajar con python y con bases de datos
 ## Actividades/Tareas
-- [ ] Escribir un código en python para acceder a una base de datos y graficarlas.
+- [x] Escribir un código en python para acceder a una base de datos y graficarlas.
+	- wget -r -N -c -np https://physionet.org/files/chbmit/1.0.0/
+	- wget -r -N -c -np https://physionet.org/files/mitdb/1.0.0/
 ## Dudas/Pendientes
 - *N/A*
-
-
-

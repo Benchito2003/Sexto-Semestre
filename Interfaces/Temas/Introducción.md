@@ -6,7 +6,7 @@ Materia: "[[MOC-Interfaces|Interfaces Hombre-Maquina]]"
 
 # Introducción
 ## Visto en clase:
-- [[Interfaces-2026-02-09]]
+- [[interfaces-2026-02-09]]
 ## Contenido
 - Necesitamos hacer equipos de 5 integrantes
 - IDE arduino
