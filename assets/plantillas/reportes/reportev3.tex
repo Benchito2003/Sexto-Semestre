@@ -1,0 +1,119 @@
+\documentclass[journal]{IEEEtran}
+
+% --- LENGUAJE Y CODIFICACIÓN ---
+\usepackage[utf8]{inputenc}   % Permite tildes y ñ directamente (UTF-8 es el estándar)
+\usepackage[T1]{fontenc}      % Codificación de fuente para que las tildes se vean bien al copiar texto del PDF
+\usepackage[spanish, es-tabla]{babel} % Configura el documento en español ("Cuadro" cambia a "Tabla")
+
+% --- MATEMÁTICAS Y SÍMBOLOS ---
+\usepackage{amsmath, amssymb, amsfonts} % El triunvirato de poder para fórmulas matemáticas
+
+% --- GRÁFICOS Y TABLAS ---
+\usepackage{graphicx}  % Para insertar imágenes (capturas de pantalla de su HMI)
+\usepackage{float}     % Permite usar [H] para forzar la posición de imágenes y tablas
+\usepackage{booktabs}  % Tablas de calidad profesional (sin líneas verticales, estilo IEEE)
+\usepackage{multirow}  % Celdas que ocupan varias filas
+
+% --- CÓDIGO FUENTE (PAQUETE NUEVO) ---
+\usepackage{listings}  % Esencial para mostrar código con resaltado de sintaxis
+\usepackage{xcolor}    % Para dar color al código
+
+% Configuración de colores para el código (Estilo Dark Mode / Profesional)
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C++ % Por defecto para Arduino/ESP32
+}
+
+% --- HIPERVÍNCULOS (CONFIGURACIÓN SOBERANA) ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Reporte de Actividad - [Su Nombre]},
+}
+
+% --- MEJORAS TIPOGRÁFICAS ---
+\usepackage{microtype} % Optimiza el espaciado entre letras para evitar huecos blancos feos
+\usepackage{csquotes}  % Manejo inteligente de comillas según el idioma
+
+\begin{document}
+
+% --- INICIO DE LA PORTADA (Rúbrica 1%) ---
+\begin{titlepage}
+    \centering
+    \vspace*{0.5cm}
+    
+    % --- Escudo de la UV ---
+    % Asegúrese de tener el archivo "escudo_uv.png" (o .jpg) en su carpeta del proyecto
+    \includegraphics[width=0.3\textwidth]{UV.png} \\ 
+    \vspace{0.8cm}
+    
+    {\huge \textbf{Universidad Veracruzana}} \\
+    \vspace{0.4cm}
+    {\Large Facultad de Instrumentación Electrónica} \\ % Corregido: Instrumentación
+    \vspace{0.2cm}
+    {\large Ingeniería Biomédica} \\
+    
+    \vfill
+    
+    % Título de la Experiencia Educativa y Actividad
+    {\Large \textbf{EE: Interfaces Hombre-Máquina}} \\
+    \vspace{0.8cm}
+    {\Large \textbf{Actividad 01: Comunicación RS-232 \\ con Interfaz RX-TX Simple}} \\
+    
+    \vspace{1.5cm}
+e   
+    % Información de los Integrantes
+    \begin{flushright} % Alineado a la derecha para un toque más profesional
+        \textbf{Profesor:} \\
+        Varela Lara Luis Julian \\
+        \vspace{0.5cm}
+        \textbf{Integrantes del equipo:} \\
+        Alfonso Gamboa Rubén \\
+        Flores Montero Edsel Yetlanezi \\
+    \end{flushright}
+    
+    \vfill
+    
+    {\large \textbf{Fecha:} \today} \\
+    \vspace{1cm}
+    {\small Xalapa, Enríquez, Ver.} % O la sede correspondiente
+\end{titlepage}
+% --- FIN DE LA PORTADA ---
+
+\newpage
+\pagenumbering{arabic} % Reiniciar numeración si es necesario
+
+% Aquí empieza el formato IEEE real
+\title{Implementación de Control de LEDs Mediante Interfaz HMI Virtual y Protocolo RS-232 No Bloqueante}
+\author{Su Nombre}
+\maketitle
+
+\begin{abstract}
+Este reporte documenta el desarrollo de un firmware...
+\end{abstract}
+
+\section{Introducción}
+...
+\end{document}

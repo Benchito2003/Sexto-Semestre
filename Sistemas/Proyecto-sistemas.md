@@ -13,7 +13,7 @@ Tipo: Proyecto
 | Prototipo | 40%   |
 | Reporte   | 20%   |
 
-## Descripción
+## Propuesta 1
 Incubadora que solo gestione temperatura y humedad, que sea programable:
 ### Materiales
 - [ ] Contenedor que mantenga la temperatura
@@ -22,5 +22,9 @@ Incubadora que solo gestione temperatura y humedad, que sea programable:
 - [ ] Algo para sumar calor
 - [ ] Algo para sumar/restar humedad
 - [ ] Control de aire
+
+## Propuesta 2
+Estufa de cultivo enfocada en simular el entorno de la laringe.
+- [ ] 
 
 ## Reporte
