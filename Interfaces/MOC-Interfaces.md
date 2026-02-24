@@ -29,7 +29,7 @@
 | Conclusiones                      | un párrafo acerca de las dificultades enfrentadas y del aprendizaje obtenido                                                                                                                                            | 1%         |
 | Referencia                        | documentos consultados o donde se pueda encontrar información ampliada del<br>tema                                                                                                                                      | 1%         |
 | Firma de revisión                 | fotografía de la hoja donde se otorgó la firma o firmas de revisión en<br>físico de los desarrollos de cada actividad por parte del profesor                                                                            | 70%        |
-2
+
 
 
 

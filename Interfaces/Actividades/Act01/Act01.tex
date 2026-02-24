@@ -1,0 +1,140 @@
+% --- IEEEtran ---
+% 'journal' = Formato de revista (doble columna, denso).
+% 'compsoc' = Optimizado para computación/ingeniería.
+\documentclass[journal, compsoc, 12pt]{IEEEtran}
+
+% --- IDIOMA Y FUENTE ---
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel} % 'es-tabla' usa "Tabla" en lugar de "Cuadro"
+\usepackage{libertinus} % Tu fuente de autoridad
+\usepackage[T1]{fontenc}
+\usepackage{microtype}  % Micro-ajustes tipográficos esenciales para doble columna
+
+% --- ARSENAL DE CITACIÓN(Vancouver/Numérico) ---
+% IEEE usa citas numéricas [1], ideal para esto.
+\usepackage[backend=biber, style=ieee, sorting=none]{biblatex}
+\addbibresource{referencias.bib}
+
+% --- UTILIDADES ---
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath} % Para tus ecuaciones de señales
+\usepackage{booktabs} % Para tablas profesionales
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=blue]{hyperref}
+
+% --- METADATOS DEL PAPER ---
+\title{Análisis de Señales para la Detección de Patologías en Voz: Proyecto Cordectomía}
+
+% En IEEE, los autores se ponen en un bloque especial
+\author{Alfonso~Gamboa~Rubén% <- Este % evita espacios extra
+\thanks{Manuscrito entregado el \today. Trabajo realizado para la materia de Análisis de Señales, Universidad Veracruzana.}}
+
+% ==========================================================
+%                  INICIO DEL PAPER
+% ==========================================================
+\begin{document}
+
+
+
+% --- INICIO DE LA PORTADA ---
+\begin{titlepage}
+    \centering
+    \vspace*{0.5cm}
+    
+    % --- Escudo de la UV ---
+    % Asegúrese de tener el archivo "escudo_uv.png" (o .jpg) en su carpeta del proyecto
+    \includegraphics[width=0.3\textwidth]{UV.png} \\ 
+    \vspace{0.8cm}
+    
+    {\huge \textbf{Universidad Veracruzana}} \\
+    \vspace{0.4cm}
+    {\Large Facultad de Instrumentación Electrónica} \\ % Corregido: Instrumentación
+    \vspace{0.2cm}
+    {\large Ingeniería Biomédica} \\
+    
+    \vfill
+    
+    % Título de la Experiencia Educativa y Actividad
+    {\Large \textbf{EE: Interfaces Hombre-Máquina}} \\
+    \vspace{0.8cm}
+    {\Large \textbf{Actividad 01: COMUNICACIÓN CON UNA INTERFAZ HOMBRE-MAQUINA PREESTABLECIDA}} \\
+    
+    \vspace{1.5cm}
+ 
+    % Información de los Integrantes
+    \begin{flushright} % Alineado a la derecha para un toque más profesional
+        \textbf{Profesor:} \\
+        Varela Lara Luis Julian \\
+        \vspace{0.5cm}
+        \textbf{Integrantes del equipo:} \\
+        Alfonso Gamboa Rubén \\
+        Flores Montero Edsel Yetlanezi \\
+    \end{flushright}
+    
+    \vfill
+    
+    {\large \textbf{Fecha:} \today} \\
+    \vspace{1cm}
+    {\small Xalapa, Enríquez, Ver.} % O la sede correspondiente
+\end{titlepage}
+% --- FIN DE LA PORTADA ---
+
+% Crea el título que abarca ambas columnas
+
+% --- RESUMEN (Abstract) ---
+% En formato IEEE, el resumen va en negrita y al inicio.
+\begin{abstract}
+  Desarrollo de la prácticca 1 de la materia de Interfaces Hombre-Máquina, adaptado para sistemas operativos base Linux y usando una Rasberry pi pico. 
+  El código utilizado se puede encontrar en github:
+\end{abstract}
+
+% --- PALABRAS CLAVE ---
+%\begin{IEEEkeywords}
+%  Raspberry pi pico, Interfaces, 
+%\end{IEEEkeywords}
+
+% --- EL CUERPO DEL TEXTO (Automáticamente en dos columnas) ---
+
+\section{Introducción}
+La funcion \textit{delay()} fue muy útil en semestres anteriores, pues permite que el microcontrolador arudino uno (o similar) se tome una pausa en milisegundos, permitiendo realizar tareas como encender un LED a determinada frecuencia, pero, \textbf{¿Qué ocurre si necesitamos varios LEDs parpadeando en paralelo a frecuencias específicas?}.
+Las funciones \textit{milis()} y \textit{micros()} son unas herramientas que justo permiten esto, al hacer que el programa  cheque cada determinados milisegundos o microsegundos si se debe prender o apagar el LED en cuestión, pudiendo extrapolarse a situaciones en las que necesitamos que varias tareas ocurran en simultáneo.
+Para el desarrollo de esta practica, el equipo cuenta con sistemas operativos en base Linux  \textit{(arch linux)}, a su vez que se opta por usar la tarjeta \textit{Raspberry pi pico}, pues cuenta con una mayor ligereza, menor precio y mayor velocidad que un arduino uno \cite{raspberrypi_pico_series}; además de tambien poder trabajar en c/c++, por lo que se puede obtener un resultado similar esperado por un menor precio.
+%Como se observa en el estudio de Betances et al. \cite{Betances2020}, el uso de sensores... (Aquí citas tu PDF de ejemplo).
+
+\section{Metodología}
+  \subsection{Control de Versiones}
+  Se utiliza git para poder llevar un control de versiones más cómodo, a la vez que se sube el código a github con el objetivo de que el código quede público y a la mano para una revisión o retroalimentación; además, git y github permiten una mejor organización a la hora de trabajar en equipo, pues tener una rama por integrante permite que todos los integrantes puedan modificar el código sin correr el riesgo a que el código deje de funcionar.
+
+
+  \subsection{Descompresión de }
+Las señales fueron capturadas a una frecuencia de muestreo de...
+
+\subsection{Pre-procesamiento}
+Se aplicó un filtro pasa-banda de...
+
+% Ejemplo de Ecuación (crucial para señales)
+\begin{equation}
+    H(z) = \sum_{k=0}^{M} b_k z^{-k}
+    \label{eq:filtro}
+\end{equation}
+
+\section{Resultados}
+La Figura \ref{fig:espectro} muestra el espectrograma comparativo...
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{UV.png} % \linewidth se ajusta a la columna
+    \caption{Comparación espectral. a) Voz sana. b) Voz con patología.}
+    \label{fig:espectro}
+\end{figure}
+
+\section{Discusión}
+Los resultados sugieren que...
+
+\section{Conclusión}
+El sistema propuesto demuestra...
+
+% --- REFERENCIAS ---
+\printbibliography
+
+\end{document}
