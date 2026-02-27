@@ -4,24 +4,49 @@
     "type": "split",
     "children": [
       {
-        "id": "473b4996c6a46f94",
+        "id": "98f04cbe446673fa",
         "type": "tabs",
         "children": [
           {
-            "id": "1fd5bf02f1985448",
+            "id": "67fb981d71cb46e4",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Procesamiento/Materiales/01 Introducción.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "01 Introducción"
+            }
+          },
+          {
+            "id": "35bb996caf34ca32",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Sistemas/Clases/sistemas-2026-02-24.md",
+                "file": "Procesamiento/Clases/procesamiento-2026-02-26.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "sistemas-2026-02-24"
+              "title": "procesamiento-2026-02-26"
+            }
+          },
+          {
+            "id": "a40b880f2351c607",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Procesamiento/Materiales/02 Adquisición de datos.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "02 Adquisición de datos"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -183,46 +208,46 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "1fd5bf02f1985448",
+  "active": "35bb996caf34ca32",
   "lastOpenFiles": [
-    "Variables de control.md",
-    "Sistemas/Clases/sistemas-2026-02-24.md",
-    "Interfaces/Encuadre del curso.pdf",
-    "Interfaces/Temas/Funciones milis y micros.md",
-    "Interfaces/Actividades/Act01/Act01.pdf",
-    "Interfaces/Actividades/Act01/ACT-01-INT.md",
-    "Interfaces/Actividades/Act01/UV.png",
-    "Interfaces/Actividades/Act01/Act01.tex~",
-    "Interfaces/Actividades/Act01/referencias.bib~",
-    "Interfaces/Actividades/Act01/Act01.synctex(busy)",
-    "Interfaces/Actividades/Act01/pdflatex67722.fls",
-    "Interfaces/Actividades/Act01/pdflatex66852.fls",
-    "Interfaces/Actividades/Act01/pdflatex66635.fls",
-    "Interfaces/Actividades/Act01/pdflatex66251.fls",
-    "Interfaces/Actividades/Act01/pdflatex66247.fls",
-    "Interfaces/MOC-Interfaces.md",
-    "Interfaces/Temas/Velocidad de comunicación.md",
-    "Interfaces/Clases/interfaces-2026-02-11.md",
-    "Interfaces/Temas/Introducción.md",
-    "Interfaces/Clases/interfaces-2026-02-09.md",
-    "Interfaces/Clases/interfaces-2026-02-13.md",
-    "Interfaces/Actividades/ACT-01-INT.md",
-    "assets/plantillas/reportes/UV.png",
-    "Pensamiento/Actividades/ACT-02-PEN.md",
-    "Sin título.canvas",
-    "Pensamiento/Actividades/SUM-ACT-02.md",
-    "Pensamiento/MOC-Pensamiento.md",
-    "assets/plantillas/Actividad.md",
-    "assets/plantillas/Apunte.md.md",
-    "Literacidad/MOC-Literacidad.md",
-    "Sistemas/Temas/conduccion de calor.md",
-    "Sistemas/Temas/¿Qué es control?.md",
-    "Sistemas/Clases/sistemas-2026-02-20.md",
+    "Procesamiento/Materiales/02 Adquisición de datos.pdf",
+    "Procesamiento/Clases/procesamiento-2026-02-26.md",
+    "Procesamiento/Materiales/01 Introducción.pdf",
+    "Pasted image 20260226183236.png",
+    "Frecuencia de muestreo.md",
+    "Pensamiento/PCSP-Evaluacion de actividades.pdf",
+    "Pensamiento/Actividades/ACT-03-PEN.md",
+    "Procesamiento/Temas/Propiedades de las señales.md",
+    "Procesamiento/Actividades/ACT-01-PRO.md",
+    "Procesamiento/Clases/procesamiento-2026-02-25.md",
+    "Procesamiento/Materiales/Practicas/Práctica 01.pdf",
+    "Procesamiento/Temas/Extensiones de bases de datos.md",
+    "Procesamiento/Temas/Derivaciones cardiacas.md",
+    "Procesamiento/Temas/Clasificación de señales.md",
+    "Procesamiento/MOC-Procesamiento.md",
+    "Procesamiento/Actividades",
+    "Sistemas/proyecto-Sistemas.md",
+    "Procesamiento/Materiales/00 Encuadre.pdf",
+    "Procesamiento/Materiales/Practicas",
+    "Procesamiento/Materiales",
+    "Telecomunicacion/Clases/telecomunicacion-2026-02-24.md",
+    "Telecomunicacion/MOC-Telecomunicacion.md",
+    "Metodos/Clases/metodos-2026-02-24.md",
     "Sistemas/Clases/sistemas-2026-02-10.md",
-    "Sistemas/Proyecto-sistemas.md",
-    "Materia-2026-02-20.md",
-    "Sistemas/Temas/Introduccion.md",
+    "Metodos/proyecto-Metodos.md",
+    "Metodos/Clases",
+    "Metodos/MOC-Metodos.md",
+    "assets/plantillas/Proyecto.md",
+    "Sistemas/IBFO-18020-Sistemas-de-control.pdf",
     "Sistemas/MOC-Sistemas.md",
-    "Procesamiento/MOC-Procesamiento.md"
+    "assets/plantillas/Encuadre.md",
+    "assets/plantillas/Apunte.md",
+    "Procesamiento/Clases/procesamiento-2026-02-09.md",
+    "Procesamiento/Clases/procesamiento-2026-02-11.md",
+    "Procesamiento/Clases/procesamiento-2026-02-12.md",
+    "Procesamiento/Temas/Introduccion.md",
+    "Interfaces/Actividades/Act01/UV.png",
+    "assets/plantillas/reportes/UV.png",
+    "Sin título.canvas"
   ]
 }

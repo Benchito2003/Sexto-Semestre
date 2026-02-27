@@ -55,6 +55,13 @@
         "a": 1,
         "rgb": 4013374
       }
+    },
+    {
+      "query": "path:Metodos  ",
+      "color": {
+        "a": 1,
+        "rgb": 11621088
+      }
     }
   ],
   "collapse-display": true,

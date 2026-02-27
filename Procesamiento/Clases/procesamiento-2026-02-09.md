@@ -7,7 +7,7 @@ Fecha: 2026-02-09
 
 
 ## Temas/Asuntos Tocados
-- [[Procesamiento/Temas/Introduccion]]
+- Se hace el encuadre de la materia.
 
 ## Notas rápidas
 

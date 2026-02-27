@@ -2,7 +2,7 @@
 Materia: 
 Tipo: Proyecto
 ---
-# Proyecto de sistemas de control
+# Proyecto de materia
 ## Equipo
 ## Evaluación
 ## Descripción
