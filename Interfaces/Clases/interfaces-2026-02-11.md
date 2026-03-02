@@ -14,7 +14,7 @@ Fecha: 2026-02-11
 ## Notas rápidas
 - N/A
 ## Actividades/Tareas
-- [ ] Checar la aplicación que dijo el profe para trabajar simular una pantalla LCD
+- [x] Checar la aplicación que dijo el profe para trabajar simular una pantalla LCD
 ## Dudas/Pendientes
 - Mañana empieza la primera actividad
 
