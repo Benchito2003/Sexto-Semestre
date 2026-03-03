@@ -1,3 +1,8 @@
+---
+tags:
+  - Actividad
+Materia: "[[MOC-Pensamiento| Pensamiento crítico]]"
+---
 **Actividad**
 
 Actividad 03. Elabora la bitácora COL tercer nivel con Metacognición. Foro 2
