@@ -8,3 +8,6 @@
 
 # Ignorar el venv de Procesamiento de señales biomédicas, pero todas las librerias utilizadas se encuenrtan en el requirements.txt
 Procesamiento/Codigos/.venv/
+
+# Ignorar el entorno de pruebas de Telecomunicaciones
+Telecomunicacion/Entorno-ESP32/

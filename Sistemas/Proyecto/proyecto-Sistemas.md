@@ -34,4 +34,11 @@ Investigar como poder aplicar la ley de hocke para este proyecto.
 Investigar el funcionamiento de un motor de grúa.
 Un motor que se comporte como se comporte como grua de auto: que especificaciones necesitamos?
 
+## Notas
+## Ideas
+- Usar un sistema magnético para switchear un sistema mecánico
+- Usar un contrapeso, para que el motor eléctrico no consuma mucha corriente (**corriente de arranque o corriente de rotor bloqueado**) pues ahora solo tendría que vencer a la diferencia de peso.
+- Poner el motor eléctrico en modo **Generar electricidad**.
+
+
 ## Reporte

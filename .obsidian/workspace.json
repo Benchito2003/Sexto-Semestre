@@ -4,39 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "0531edee060e5d74",
+        "id": "2f0d13530fc55b48",
         "type": "tabs",
         "children": [
           {
-            "id": "2145fc4476914ae6",
+            "id": "03565c8b1bbe14d3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "Metodos/Proyecto/proyecto-Metodos.md",
-                "mode": "source",
-                "source": false
+                "file": "Interfaces/Encuadre del curso.pdf"
               },
-              "icon": "lucide-file",
-              "title": "proyecto-Metodos"
-            }
-          },
-          {
-            "id": "cb1bcb5a31845afe",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Procesamiento/Proyecto/proyecto-Procesamiento.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "proyecto-Procesamiento"
+              "icon": "lucide-file-text",
+              "title": "Encuadre del curso"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -198,8 +181,26 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "ba3a2157ec29bf7a",
+  "active": "03565c8b1bbe14d3",
   "lastOpenFiles": [
+    "Interfaces/Temas/Introducción.md",
+    "Interfaces/Temas/Velocidad de comunicación.md",
+    "assets/Imagenes/Pasted image 20260304162238.png",
+    "Procesamiento/Materiales/03 Análisis en frecuencia de sistemas LTI.pdf",
+    "Procesamiento/Temas/Sistemas invariantes en el tiempo.md",
+    "Procesamiento/Temas/Sistemas lineales.md",
+    "Metodos/Proyecto/proyecto-Metodos.md",
+    "assets/Imagenes/Pasted image 20260304164718.png",
+    "Procesamiento/Clases/procesamiento-2026-03-02.md",
+    "Procesamiento/Clases/procesamiento-2026-03-04.md",
+    "Sistemas/Proyecto/proyecto-Sistemas.md",
+    "Telecomunicacion/Clases/telecomunicacion-2026-03-03.md",
+    "Interfaces/Temas/Como flashear un ESP32 con micropython.md",
+    "Telecomunicacion/Entorno-ESP32/main.py~",
+    "Telecomunicacion/Entorno-ESP32/main.py",
+    "Telecomunicacion/Entorno-ESP32",
+    "Interfaces/ESP32_GENERIC-20251209-v1.27.0.bin",
+    "Procesamiento/Proyecto/proyecto-Procesamiento.md",
     "Pensamiento/Actividades/Act04/Act04-Formato-Organizador-Terminologico-de-Solucion.docx",
     "Pensamiento/Actividades/Act04/Act04-Formato-Organizador-Terminologico-de-Problema.docx",
     "Pensamiento/Actividades/Act04/ACT-04.md",
@@ -208,16 +209,8 @@
     "Pensamiento/Actividades/Act03",
     "Pensamiento/Actividades/Act02/ACT-02-PEN.md",
     "Pensamiento/Actividades/Act02",
-    "Pensamiento/Actividades/Act01/ED01_AlfonsoRuben.docx",
-    "Pensamiento/Actividades/Act01",
-    "Telecomunicacion/Actividades",
-    "Procesamiento/IBFO-18019-Procesamiento-de-Senales-Biomedicas.pdf",
-    "Procesamiento/Proyecto/proyecto-Procesamiento.md",
-    "Procesamiento/Proyecto",
-    "Pensamiento/P.E.-Pensamiento_critico-1-1.pdf",
     "Literacidad/MOC-Literacidad.md",
     "Interfaces/Proyecto/proyecto-Interfaces.md",
-    "Metodos/Proyecto/proyecto-Metodos.md",
     "assets/plantillas/Tema.md",
     "Metodos/Temas/Pasos para desarrollar el tema.md",
     "Metodos/Clases/metodos-2026-03-03.md",
@@ -228,15 +221,7 @@
     "Procesamiento/Clases/procesamiento-2026-02-11.md",
     "Pensamiento/Actividades/ACT03/ACT-03-PEN.md",
     "Pensamiento/Actividades/ACT02/ACT-02-PEN.md",
-    "Pensamiento/Actividades/ACT-03/ACT-03-PEN.md",
-    "Pensamiento/Actividades/ACT-02/ACT-02-PEN.md",
-    "Sistemas en tiempo discreto.md",
-    "Procesamiento/Temas/señales.md",
-    "Procesamiento/Temas/Clasificación de señales.md",
-    "Procesamiento/Temas/Cuantificación.md",
-    "Procesamiento/Temas/alias.md",
-    "Procesamiento/Clases/procesamiento-2026-03-02.md",
-    "assets/Pasted image 20260302142349.png",
+    "assets/Imagenes/Pasted image 20260302142349.png",
     "assets/Imagenes/Pasted image 20260302141442.png",
     "assets/Imagenes/Pasted image 20260226183236.png",
     "Interfaces/Actividades/Act01/UV.png",
