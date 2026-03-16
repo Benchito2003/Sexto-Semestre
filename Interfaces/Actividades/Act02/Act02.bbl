@@ -1,0 +1,77 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{industrialshields_2020_millis}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=56dbc25754309f4b471fcf93eadbf547}{%
+           family={{Industrial Shields}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{fullhash}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{fullhashraw}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{bibnamehash}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{authorbibnamehash}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{authornamehash}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{authorfullhash}{56dbc25754309f4b471fcf93eadbf547}
+      \strng{authorfullhashraw}{56dbc25754309f4b471fcf93eadbf547}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.industrialshields.com/es_ES/blog/blog-industrial-open-source-1/industrial-arduino-millis-vs-delay-248}}
+      \field{journaltitle}{Blog Industrial Open Source}
+      \field{month}{9}
+      \field{note}{Accedido: 2026-03-13}
+      \field{title}{Industrial Arduino Millis() vs Delay()}
+      \field{year}{2020}
+    \endentry
+    \entry{keim_2016_capacitive}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=941f016f0d2c2891751c65b8fd89a6b4}{%
+           family={Keim},
+           familyi={K\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{fullhash}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{fullhashraw}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{bibnamehash}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{authorbibnamehash}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{authornamehash}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{authorfullhash}{941f016f0d2c2891751c65b8fd89a6b4}
+      \strng{authorfullhashraw}{941f016f0d2c2891751c65b8fd89a6b4}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.allaboutcircuits.com/technical-articles/introduction-to-capacitive-touch-sensing/}}
+      \field{journaltitle}{All About Circuits}
+      \field{month}{5}
+      \field{note}{Uyaykusqa: 2026-03-13}
+      \field{title}{Introduction to Capacitive Touch Sensing}
+      \field{year}{2016}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

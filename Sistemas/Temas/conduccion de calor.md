@@ -28,7 +28,7 @@ $$\frac{Q}{\Delta t} = \frac{kA}{x}(T_1 - T_2)$$
 
 
 ## Convección: Fórmula de la Ley de Convección (Ley de enfriamiento de Newton):
-$$\frac{dQ}{dt}=hA_s(T_s-T_{inf}$$
+$$\frac{dQ}{dt}=hA_s(T_s-T_{inf})$$
 
 | Símbolo   | Nombre                                    |
 | --------- | ----------------------------------------- |
@@ -36,6 +36,9 @@ $$\frac{dQ}{dt}=hA_s(T_s-T_{inf}$$
 | $A_s$     | Área del cuerpo en contacto con el fluido |
 | $T_s$     | Temperatura en la superficie del cuerpo   |
 | $T_{inf}$ | Temperatura del fluido lejos del cuerpo   |
+
+![[ecuación de la ley de ferviente de newton]]
+
 
 ## Radiación: Ley de plank
 "Esta ley es peculiar, pues plank descubrió así la física cuántica y no se dio cuenta" (*profe Gallardo*)
