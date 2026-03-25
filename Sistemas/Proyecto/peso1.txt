@@ -1,0 +1,42 @@
+#include "HX711.h"
+
+// Definir los pines del ESP32 conectados al HX711
+const int LOADCELL_DOUT_PIN = 16;
+const int LOADCELL_SCK_PIN = 4;
+
+HX711 scale;
+
+// FACTOR DE CALIBRACIÓN: Este número será diferente para tu celda de 2000kg.
+// Empezaremos con 1 para que veas los valores crudos, pero tendrás que ajustarlo.
+float factor_calibracion = -3517.0; 
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("Inicializando la báscula...");
+
+  // Iniciar el sensor
+  scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+
+  // Aplicar el factor de calibración
+  scale.set_scale(factor_calibracion);
+
+  // Poner la báscula a 0 (Tara) - Asegúrate de que no haya peso sobre la celda al encender
+  scale.tare(); 
+
+  Serial.println("Báscula lista. Lecturas:");
+}
+
+void loop() {
+  if (scale.is_ready()) {
+    // Leer el peso (el número dentro del paréntesis indica cuántas lecturas promediar)
+    float peso = scale.get_units(10);
+    
+    Serial.print("Peso: ");
+    Serial.print(peso, 2); // Imprimir con 2 decimales
+    Serial.println(" kg");
+  } else {
+    Serial.println("HX711 no encontrado. Revisa las conexiones.");
+  }
+
+  delay(1000); // Esperar 1 segundo entre lecturas
+}

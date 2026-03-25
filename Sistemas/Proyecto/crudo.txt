@@ -1,0 +1,26 @@
+
+#include "HX711.h"
+
+#define DOUT  3
+#define CLK   2
+
+HX711 scale;
+
+void setup() {
+  Serial.begin(9600);
+  scale.begin(DOUT, CLK);
+
+  Serial.println("HX711 listo");
+}
+
+void loop() {
+  if (scale.is_ready()) {
+    long reading = scale.read();
+    Serial.print("Lectura: ");
+    Serial.println(reading);
+  } else {
+    Serial.println("HX711 no encontrado.");
+  }
+
+  delay(500);
+}

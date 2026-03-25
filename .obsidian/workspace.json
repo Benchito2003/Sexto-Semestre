@@ -4,31 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "5e459f55d929a98b",
+        "id": "cc0aad42b1c1a8ea",
         "type": "tabs",
         "children": [
           {
-            "id": "570280af93861a09",
+            "id": "754be6d68928d89d",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "Interfaces/Encuadre del curso.pdf"
+                "file": "Procesamiento/Tareas/Tarea-01-PRO.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "Encuadre del curso"
-            }
-          },
-          {
-            "id": "860ee6965f32a990",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Procesamiento/Materiales/03 Análisis en frecuencia de sistemas LTI.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "03 Análisis en frecuencia de sistemas LTI"
+              "icon": "lucide-file",
+              "title": "Tarea-01-PRO"
             }
           }
         ]
@@ -193,54 +183,53 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "570280af93861a09",
+  "active": "754be6d68928d89d",
   "lastOpenFiles": [
-    "Interfaces/Actividades/Act02/Act02.tex~",
-    "Interfaces/IBFO-18022-Interfaces-Hombre-Maquina.pdf",
+    "Procesamiento/Materiales/00 Encuadre.pdf",
+    "Procesamiento/IBFO-18019-Procesamiento-de-Senales-Biomedicas.pdf",
+    "Procesamiento/MOC-Procesamiento.md",
+    "Procesamiento/Temas/señales.md",
+    "Procesamiento/Clases/procesamiento-2026-02-11.md",
+    "Procesamiento/Clases/procesamiento-2026-02-09.md",
+    "Procesamiento/Tareas/Tarea-01-PRO.md",
+    "Telecomunicacion/Clases/telecomunicacion-2026-03-24.md",
+    "assets/plantillas/tarea.md",
+    "assets/plantillas/Actividad.md",
+    "assets/plantillas/Apunte.md",
+    "assets/plantillas/Encuadre.md",
+    "assets/plantillas/Formato IEEE.md",
+    "assets/plantillas/Proyecto.md",
+    "assets/plantillas/Tema.md",
+    "assets/plantillas/reportes/pngegg.png",
+    "Procesamiento/Actividades/ACT-01-PRO.md",
+    "Procesamiento/Tareas",
+    "Procesamiento/Materiales/03 Análisis en frecuencia de sistemas LTI.pdf",
+    "Sistemas/Clases/sistemas-2026-03-24.md",
+    "Sistemas/Clases/sistemas-2026-02-20.md",
+    "Sistemas/Clases/sistemas-2026-02-10.md",
+    "Sistemas/Clases/sistemas-2026-03-10.md",
+    "Sistemas/Materiales/laplace.pdf",
+    "assets/Imagenes/Pasted image 20260324134853.png",
+    "Telecomunicacion/Temas/Introducción.md",
+    "Pensamiento/Actividades/Act06/ACT-06-PEN.md",
+    "Pensamiento/Actividades/Act06/ED06_AlfonsoRuben.docx",
+    "Pensamiento/Actividades/Act05",
+    "Pensamiento/Actividades/Act04/ACT-04-PEN.md",
+    "Pensamiento/Actividades/Act06",
+    "Literacidad/Materiales/Act06.pdf",
+    "Pensamiento/Materiales/Act06.pdf",
     "Interfaces/MOC-Interfaces.md",
-    "Interfaces/Actividades/Act02/4913",
-    "Interfaces/Actividades/Act02/_DAB657967837EA2E8AF2159F4A4D3748.config.minted",
-    "Interfaces/Actividades/Act02/_DAB657967837EA2E8AF2159F4A4D3748.data.minted",
-    "Interfaces/Actividades/Act02/Act02.synctex(busy)",
-    "Interfaces/Actividades/Act02/xelatex112685.fls",
-    "Interfaces/Actividades/Act02/xelatex112650.fls",
-    "Interfaces/Actividades/Act02/xelatex112484.fls",
-    "Interfaces/Actividades/Act02/xelatex112452.fls",
-    "Interfaces/Actividades/Act02/xelatex112328.fls",
     "Interfaces/Actividades/Act02/2026-03-13_21:55:54.png",
     "Interfaces/Actividades/Act02/circuito.jpg",
     "Interfaces/Actividades/Act02/Firma.jpg",
     "Procesamiento/Clases/procesamiento-2026-03-13.md",
     "Procesamiento/Clases/procesamiento-2026-03-12.md",
     "Interfaces/Actividades/Act02/Act-02-INT.md",
-    "Interfaces/Actividades/Act01/ACT-01-INT.md",
-    "Procesamiento/Temas/La transformada z.md",
-    "Procesamiento/Clases/procesamiento-2026-03-11.md",
-    "Procesamiento/Clases/procesamiento-2026-03-06.md",
-    "Sistemas/Clases/sistemas-2026-03-10.md",
-    "Sexto-Semestre.md",
-    "Sistemas en tiempo discreto.md",
-    "Literacidad/Actividades/Act04/ACT04-LIT.md",
-    "Literacidad/MOC-Literacidad.md",
     "Telecomunicacion/ASCII.jpg",
-    "Telecomunicacion/Clases/telecomunicacion-2026-03-03.md",
-    "Telecomunicacion/MOC-Telecomunicacion.md",
-    "Pensamiento/MOC-Pensamiento.md",
-    "Pensamiento/Actividades/Act04/ACT-04.md",
-    "Procesamiento/Temas/Sistemas lineales.md",
-    "Procesamiento/Clases/procesamiento-2026-03-04.md",
-    "Procesamiento/Clases/procesamiento-2026-03-02.md",
-    "Procesamiento/Clases/procesamiento-2026-02-27.md",
-    "Sistemas/Temas/¿Qué es control?.md",
-    "Sistemas/Temas/conduccion de calor.md",
-    "Sistemas/Temas/ecuación de la ley de ferviente de newton.md",
-    "Sistemas/Temas/transformada de Laplace.md",
     "assets/Imagenes/Pasted image 20260304162238.png",
     "assets/Imagenes/Pasted image 20260304164718.png",
     "assets/Imagenes/Pasted image 20260302142349.png",
     "assets/Imagenes/Pasted image 20260302141442.png",
-    "assets/Imagenes/Pasted image 20260226183236.png",
-    "Interfaces/Actividades/Act01/UV.png",
     "Sin título.canvas"
   ]
 }

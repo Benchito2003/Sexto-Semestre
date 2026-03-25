@@ -1,0 +1,96 @@
+
+#include "HX711.h"
+
+#define DOUT 3
+#define CLK 2
+
+HX711 scale;
+
+long tara = 0;
+float pesoConocido = 0;
+
+const int muestras = 20;
+
+void setup() {
+
+  Serial.begin(9600);
+  delay(2000);
+
+  Serial.println("=== CALIBRACION CELDA DE CARGA ===");
+
+  scale.begin(DOUT, CLK);
+
+  Serial.println("Retira todo peso de la celda...");
+  delay(5000);
+
+  tara = scale.read_average(20);
+
+  Serial.print("Tara detectada: ");
+  Serial.println(tara);
+
+  Serial.println("Ingresa peso conocido en kg y presiona ENTER:");
+}
+
+void loop() {
+
+  if (pesoConocido == 0 && Serial.available()) {
+
+    pesoConocido = Serial.parseFloat();
+
+    Serial.print("Peso ingresado: ");
+    Serial.print(pesoConocido);
+    Serial.println(" kg");
+
+    Serial.println("Coloca el peso sobre la celda...");
+    delay(5000);
+
+    float factores[muestras];
+
+    for (int i = 0; i < muestras; i++) {
+
+      long lectura = scale.read_average(10);
+
+      float factor = (lectura - tara) / pesoConocido;
+
+      factores[i] = factor;
+
+      Serial.print("Medicion ");
+      Serial.print(i + 1);
+      Serial.print(": ");
+      Serial.println(factor);
+
+      delay(500);
+    }
+
+    float suma = 0;
+
+    for (int i = 0; i < muestras; i++) {
+      suma += factores[i];
+    }
+
+    float promedio = suma / muestras;
+
+    float varianza = 0;
+
+    for (int i = 0; i < muestras; i++) {
+      varianza += pow(factores[i] - promedio, 2);
+    }
+
+    float desviacion = sqrt(varianza / muestras);
+
+    Serial.println();
+    Serial.println("===== RESULTADO FINAL =====");
+
+    Serial.print("Factor de calibracion promedio: ");
+    Serial.println(promedio);
+
+    Serial.print("Desviacion: ");
+    Serial.println(desviacion);
+
+    Serial.println();
+    Serial.println("Usa este valor en tu codigo:");
+    Serial.println(promedio);
+
+    while (true);
+  }
+}
