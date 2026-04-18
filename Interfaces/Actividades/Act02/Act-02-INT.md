@@ -17,3 +17,7 @@ Adicionalmente pruebe los botones de toque bajo las siguientes condiciones y det
 4. Pruebe con distintos tipos de materiales (tela, plástico, metales, madera, entre otros) para tocar el botón, determine cuales permiten y cuales no le permiten al botón detectar el toque.
 
 Elabore un documento con sus resultados y observaciones, cuidando que cumpla con las características establecidas al inicio del curso, y entréguelo en esta plataforma antes de la fecha y hora máximas establecidas, y no olvide insertar en el documento la firma de revisión obtenida al implementar la actividad.
+
+## PDF
+(rehecho)
+![[Act02.pdf]]

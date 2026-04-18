@@ -1,0 +1,57 @@
+#include <Arduino.h>
+#include <driver/spi_slave.h>
+
+// Definimos los pines del bus VSPI
+#define SPI_SLAVE_MISO 19
+#define SPI_SLAVE_MOSI 23
+#define SPI_SLAVE_SCK  18
+#define SPI_SLAVE_CS   5
+
+// Los buffers para DMA deben estar alineados en memoria
+WORD_ALIGNED_ATTR char sendbuf[129] = "";
+WORD_ALIGNED_ATTR char recvbuf[129] = "";
+
+void setup() {
+  Serial.begin(115200);
+
+  // Configuración de los pines del bus SPI
+  spi_bus_config_t buscfg = {};
+  buscfg.mosi_io_num = SPI_SLAVE_MOSI;
+  buscfg.miso_io_num = SPI_SLAVE_MISO;
+  buscfg.sclk_io_num = SPI_SLAVE_SCK;
+  buscfg.quadwp_io_num = -1; // No se usan
+  buscfg.quadhd_io_num = -1; // No se usan
+
+  // Configuración de la interfaz del esclavo
+  spi_slave_interface_config_t slvcfg = {};
+  slvcfg.spics_io_num = SPI_SLAVE_CS;
+  slvcfg.flags = 0;
+  slvcfg.queue_size = 1;
+  slvcfg.mode = 0; // Modo SPI 0 (CPOL=0, CPHA=0)
+
+  // Inicializar el esclavo en el bus VSPI (En cores recientes puede llamarse SPI3_HOST)
+  spi_slave_initialize(VSPI_HOST, &buscfg, &slvcfg, SPI_DMA_DISABLED);
+  
+  Serial.println("Esclavo SPI Iniciado y esperando datos...");
+}
+
+void loop() {
+  // Limpiamos el buffer de recepción y preparamos el de envío
+  memset(recvbuf, 0, sizeof(recvbuf));
+  snprintf(sendbuf, sizeof(sendbuf), "B"); // El dato que le responderemos al maestro
+  
+  // Preparamos la transacción
+  spi_slave_transaction_t t;
+  memset(&t, 0, sizeof(t));
+  t.length = 8; // Tamaño en bits a recibir/enviar (1 byte = 8 bits)
+  t.tx_buffer = sendbuf;
+  t.rx_buffer = recvbuf;
+
+  // Esta función bloquea el código hasta que el Maestro inicie la comunicación
+  esp_err_t ret = spi_slave_transmit(VSPI_HOST, &t, portMAX_DELAY);
+  
+  if (ret == ESP_OK) {
+    Serial.print("Recibido del Maestro: ");
+    Serial.println(recvbuf[0]);
+  }
+}

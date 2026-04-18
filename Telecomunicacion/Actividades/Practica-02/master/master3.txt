@@ -1,0 +1,47 @@
+#include <SPI.h>
+
+#define CS1 5
+#define CS2 17
+#define CS3 16
+
+SPISettings spiConfig(1000000, MSBFIRST, SPI_MODE0);
+
+void setup() {
+  Serial.begin(115200);
+  SPI.begin(18, 19, 23, -1);
+
+  pinMode(CS1, OUTPUT);
+  pinMode(CS2, OUTPUT);
+  pinMode(CS3, OUTPUT);
+  digitalWrite(CS1, HIGH);
+  digitalWrite(CS2, HIGH);
+  digitalWrite(CS3, HIGH);
+
+  Serial.println("Escribe algo y se enviara al esclavo 1:");
+}
+
+byte transferToSlave(uint8_t csPin, byte data) {
+  SPI.beginTransaction(spiConfig);
+  digitalWrite(csPin, LOW);
+  delayMicroseconds(50);
+  byte response = SPI.transfer(data);
+  delayMicroseconds(50);
+  digitalWrite(csPin, HIGH);
+  SPI.endTransaction();
+  return response;
+}
+
+void loop() {
+  // Si hay datos esperando en el Serial
+  if (Serial.available() > 0) {
+    byte caracter = Serial.read();   // leer UN byte del buffer
+
+    byte resp = transferToSlave(CS1, caracter);
+
+    Serial.print("Enviado: ");
+    Serial.print((char)caracter);
+    Serial.print("  →  Esclavo respondio: 0x");
+    Serial.println(resp, HEX);
+  }
+  // Sin delay — el loop corre lo más rápido posible
+}

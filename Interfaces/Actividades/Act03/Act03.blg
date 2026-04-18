@@ -1,0 +1,9 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'Act03.blg'
+[80] biber:342> INFO - === jue abr  9, 2026, 00:12:23
+[99] Biber.pm:421> INFO - Reading 'Act03.bcf'
+[166] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[191] bbl.pm:676> INFO - Writing 'Act03.bbl' with encoding 'UTF-8'
+[191] bbl.pm:779> INFO - Output to Act03.bbl
+[192] Biber.pm:132> WARN - The file 'Act03.bcf' does not contain any citations!
+[192] Biber.pm:134> INFO - WARNINGS: 1

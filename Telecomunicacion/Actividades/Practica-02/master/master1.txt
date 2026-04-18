@@ -1,0 +1,50 @@
+#include <SPI.h>
+
+const int csPin = 5;
+const int bufferSize = 32; // Tamaño máximo del mensaje
+
+char tx_buf[bufferSize];
+char rx_buf[bufferSize];
+
+void setup() {
+  Serial.begin(115200);
+  
+  SPI.begin(); // VSPI por defecto
+  pinMode(csPin, OUTPUT);
+  digitalWrite(csPin, HIGH);
+  
+  Serial.println("--- Maestro SPI Listo ---");
+  Serial.println("Escribe un mensaje y presiona Enter...");
+}
+
+void loop() {
+  // Limpiamos los buffers en cada ciclo
+  memset(tx_buf, 0, bufferSize);
+  memset(rx_buf, 0, bufferSize);
+
+  // 1. Verificamos si escribiste algo en el Monitor Serie del Maestro
+  if (Serial.available()) {
+    // Leemos hasta que des Enter ('\n') o se llene el buffer
+    int len = Serial.readBytesUntil('\n', tx_buf, bufferSize - 1);
+    tx_buf[len] = '\0'; // Aseguramos que sea una cadena de texto válida
+    Serial.print("Tú (Maestro): ");
+    Serial.println(tx_buf);
+  }
+
+  // 2. Iniciamos el intercambio SPI (Polling)
+  digitalWrite(csPin, LOW);
+  for (int i = 0; i < bufferSize; i++) {
+    // Enviamos nuestro byte y al mismo tiempo leemos el byte del esclavo
+    rx_buf[i] = SPI.transfer(tx_buf[i]);
+  }
+  digitalWrite(csPin, HIGH);
+
+  // 3. Verificamos si el Esclavo nos mandó algo útil (descartamos vacíos o 0xFF)
+  if (rx_buf[0] != '\0' && rx_buf[0] != 0xFF) {
+    Serial.print("Esclavo dice: ");
+    Serial.println(rx_buf);
+  }
+
+  // Esperamos 100ms antes del siguiente sondeo para no saturar los procesadores
+  delay(100); 
+}

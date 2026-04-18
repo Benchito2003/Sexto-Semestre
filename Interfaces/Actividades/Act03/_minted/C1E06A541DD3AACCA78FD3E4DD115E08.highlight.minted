@@ -1,0 +1,149 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}math.h\PYGZgt{}}
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Variables y constantes \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+c1}{// Pines}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VRx}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A1}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VRy}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{A2}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{SW}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{7}\PYG{p}{;}
+
+\PYG{c+c1}{// Joystick}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{X}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{Y}\PYG{p}{;}
+\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{boton}\PYG{p}{;}
+
+\PYG{c+c1}{// Variables para tiempo}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoActual}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoAnteriorX}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoAnteriorY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// cada coordenada guardará su ultimo cambio por aparte}
+
+\PYG{c+c1}{// variables para periodos y frecuencias}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{periodoX}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{periodoY}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{frecuenciaX}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{frecuenciaY}\PYG{p}{;}
+
+\PYG{c+c1}{// Variables que nos permitiran \PYGZsq{}guardar\PYGZsq{} el estado del joystick}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{estadoX}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{estadoY}\PYG{p}{;}
+\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{estadoSW}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+
+\PYG{c+c1}{// constantes de los valores que toma el joystick cuando se encuentra en el centro}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{medioX}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{496}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{medioY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{524}\PYG{p}{;}
+
+\PYG{c+c1}{// constante para modificar la frecuencia maxima}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{frecMax}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{150}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// constante que nos ayuda a regular la velocidad, siendo una lentitud constante}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{asceleracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{tolerancia}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.02}\PYG{p}{;}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Funciones \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{c+c1}{// Funcion que convierte la posicion del joystick en frecuencia}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n+nf}{frec}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{posicion}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{  }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{absoluto}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{abs}\PYG{p}{(}\PYG{l+m+mi}{511}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{posicion}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{frecuencia}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{pow}\PYG{p}{(}\PYG{n}{absoluto}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{asceleracion}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{reductor}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{frecMax}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{pow}\PYG{p}{(}\PYG{l+m+mi}{511}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{asceleracion}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{frecuencia}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{reductor}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{c+c1}{// Funcion para calcular direccion}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{direction}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{posicion}\PYG{p}{,}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{valorMedio}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{posicion}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valorMedio}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valorMedio}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{tolerancia}\PYG{p}{)))\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// bajar}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{posicion}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valorMedio}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valorMedio}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{tolerancia}\PYG{p}{)))\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// pararse}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{posicion}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valorMedio}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{valorMedio}\PYG{o}{*}\PYG{n}{tolerancia}\PYG{p}{)))\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// subir}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{k}{else}\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{return}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// error}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{setup}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{c+c1}{// put your setup code here, to run once:}
+\PYG{+w}{  }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{l+m+mi}{9600}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c+c1}{// Pines para lectura X y Y (analogicos)}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{VRx}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{INPUT}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{VRy}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{INPUT}\PYG{p}{);}
+\PYG{+w}{  }\PYG{c+c1}{// Pines para lectura de cuando se presiona el boton del joystick (digital)}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{SW}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{INPUT\PYGZus{}PULLUP}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{loop}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{c+c1}{//medicion del tiempo}
+\PYG{+w}{  }\PYG{n}{tiempoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{millis}\PYG{p}{();}
+
+\PYG{+w}{  }\PYG{c+c1}{// Capturamos la posicion del Joystick}
+\PYG{+w}{  }\PYG{n}{X}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{analogRead}\PYG{p}{(}\PYG{n}{VRx}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{analogRead}\PYG{p}{(}\PYG{n}{VRy}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{boton}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{digitalRead}\PYG{p}{(}\PYG{n}{SW}\PYG{p}{);}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{c+c1}{// Verificamos si se ha cambiado de posicion den alguno de los valores}
+\PYG{+w}{  }\PYG{n}{estadoX}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{direction}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{medioX}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{direction}\PYG{p}{(}\PYG{n}{Y}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{medioY}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c+c1}{// Mover X}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoX}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{    }\PYG{c+c1}{// solo si la dirección es diferente de 0, calculamos el periodo de cambio}
+\PYG{+w}{    }\PYG{n}{periodoX}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{frec}\PYG{p}{(}\PYG{n}{X}\PYG{p}{);}\PYG{c+c1}{// 1000 milis = 1 seg}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempoActual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempoAnteriorX}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{periodoX}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{      }\PYG{k}{switch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoX}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{:}
+\PYG{+w}{          }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{20}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}
+\PYG{+w}{          }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{println}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Error de medicion en X\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{tiempoAnteriorX}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempoActual}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{        }
+\PYG{+w}{  }\PYG{c+c1}{// Mover Y}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{    }\PYG{c+c1}{// solo si la dirección es diferente de 0, calculamos el periodo de cambio}
+\PYG{+w}{    }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{frec}\PYG{p}{(}\PYG{n}{Y}\PYG{p}{);}\PYG{c+c1}{// 1000 milis = 1 seg}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempoActual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempoAnteriorY}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{periodoY}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{      }\PYG{k}{switch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoY}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{:}
+\PYG{+w}{          }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{30}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{40}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{:}
+\PYG{+w}{          }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{println}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Error de medicion en Y\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{tiempoAnteriorY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempoActual}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// Imprimir 50 cuando se presione el botón}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{boton}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoSW}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{      }\PYG{c+c1}{//Serial.println(\PYGZdq{}presionado\PYGZdq{}); // debug}
+\PYG{+w}{      }\PYG{n}{estadoSW}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{k}{else}\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{estadoSW}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{      }\PYG{c+c1}{//Serial.println(\PYGZdq{}Sin presionar\PYGZdq{}); // debug}
+\PYG{+w}{      }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{50}\PYG{p}{);}
+\PYG{+w}{      }\PYG{n}{estadoSW}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

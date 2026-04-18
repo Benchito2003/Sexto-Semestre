@@ -1,0 +1,47 @@
+#include <SPI.h>
+
+#define CS1 5
+#define CS2 17
+#define CS3 16
+
+// Configuración SPI: 1MHz, byte más significativo primero, Modo 0
+SPISettings spiConfig(1000000, MSBFIRST, SPI_MODE0);
+
+void setup() {
+  Serial.begin(115200);
+
+  // SCK=18, MISO=19, MOSI=23, SS no manejado por librería (-1)
+  SPI.begin(18, 19, 23, -1);
+
+  pinMode(CS1, OUTPUT);
+  pinMode(CS2, OUTPUT);
+  pinMode(CS3, OUTPUT);
+
+  // Todos los esclavos inactivos al inicio
+  digitalWrite(CS1, HIGH);
+  digitalWrite(CS2, HIGH);
+  digitalWrite(CS3, HIGH);
+
+  Serial.println("SPI maestro listo");
+}
+
+// Función reutilizable para enviar/recibir de un esclavo
+byte transferToSlave(uint8_t csPin, byte data) {
+  SPI.beginTransaction(spiConfig);
+  digitalWrite(csPin, LOW);
+  delayMicroseconds(10);        // pequeña pausa para que el esclavo reaccione
+  byte response = SPI.transfer(data);
+  delayMicroseconds(10);
+  digitalWrite(csPin, HIGH);
+  SPI.endTransaction();
+  return response;
+}
+
+void loop() {
+  // Enviar al esclavo 1
+  byte resp = transferToSlave(CS1, 'A');  // comillas simples = un byte
+  Serial.print("Esclavo 1 respondio: 0x");
+  Serial.println(resp, HEX);
+
+  delay(1000);
+}
