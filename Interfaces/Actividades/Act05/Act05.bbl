@@ -1,0 +1,170 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{pixart_paj7620u2_datasheet}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=2d6a2de99b1398fa2df8c28bc9e3bcee}{%
+           family={Inc.},
+           familyi={I\bibinitperiod},
+           given={PixArt\bibnamedelima Imaging},
+           giveni={P\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+      }
+      \strng{namehash}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{fullhash}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{fullhashraw}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{bibnamehash}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{authorbibnamehash}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{authornamehash}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{authorfullhash}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \strng{authorfullhashraw}{2d6a2de99b1398fa2df8c28bc9e3bcee}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Consultado el 20 de mayo de 2026}
+      \field{title}{PAJ7620U2 Integrated Gesture Recognition Sensor Datasheet}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://files.seeedstudio.com/wiki/Grove_Gesture_V_1.0/res/PAJ7620U2_DS_v1.5_05012022_Confidential.pdf
+      \endverb
+      \verb{url}
+      \verb https://files.seeedstudio.com/wiki/Grove_Gesture_V_1.0/res/PAJ7620U2_DS_v1.5_05012022_Confidential.pdf
+      \endverb
+    \endentry
+    \entry{makerguides_paj7620}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=63899ddf6c525f00903660e2e41c0ec8}{%
+           family={MakerGuides},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{fullhash}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{fullhashraw}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{bibnamehash}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{authorbibnamehash}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{authornamehash}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{authorfullhash}{63899ddf6c525f00903660e2e41c0ec8}
+      \strng{authorfullhashraw}{63899ddf6c525f00903660e2e41c0ec8}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Consultado el 20 de mayo de 2026}
+      \field{title}{Sensor de gestos PAJ7620U2 con Arduino}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.makerguides.com/es/paj7620u2-gesture-sensor-with-arduino-es/
+      \endverb
+      \verb{url}
+      \verb https://www.makerguides.com/es/paj7620u2-gesture-sensor-with-arduino-es/
+      \endverb
+    \endentry
+    \entry{crandall_reveng_paj7620}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=5481ce8b4ed077bc596487c62c15cb57}{%
+           family={Crandall},
+           familyi={C\bibinitperiod},
+           given={Aaron\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{fullhash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{fullhashraw}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{bibnamehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authorbibnamehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authornamehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authorfullhash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authorfullhashraw}{5481ce8b4ed077bc596487c62c15cb57}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Biblioteca Arduino/ESP32 para el sensor de gestos PAJ7620U2. Consultado el 20 de mayo de 2026}
+      \field{title}{RevEng PAJ7620 Documentation}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://acrandal.github.io/RevEng_PAJ7620/latest/index.html
+      \endverb
+      \verb{url}
+      \verb https://acrandal.github.io/RevEng_PAJ7620/latest/index.html
+      \endverb
+    \endentry
+    \entry{reveng_paj7620_github}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=5481ce8b4ed077bc596487c62c15cb57}{%
+           family={Crandall},
+           familyi={C\bibinitperiod},
+           given={Aaron\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{fullhash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{fullhashraw}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{bibnamehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authorbibnamehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authornamehash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authorfullhash}{5481ce8b4ed077bc596487c62c15cb57}
+      \strng{authorfullhashraw}{5481ce8b4ed077bc596487c62c15cb57}
+      \field{extraname}{2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/acrandal/RevEng_PAJ7620}}
+      \field{note}{Consultado el 20 de mayo de 2026}
+      \field{title}{RevEng\_PAJ7620: PAJ7620 gesture sensor Arduino driver and user API}
+      \field{year}{2021}
+    \endentry
+    \entry{luisllamas_fsm_arduino}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=789d74aa550b6585221f27682e8adb89}{%
+           family={Llamas},
+           familyi={L\bibinitperiod},
+           given={Luis},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{789d74aa550b6585221f27682e8adb89}
+      \strng{fullhash}{789d74aa550b6585221f27682e8adb89}
+      \strng{fullhashraw}{789d74aa550b6585221f27682e8adb89}
+      \strng{bibnamehash}{789d74aa550b6585221f27682e8adb89}
+      \strng{authorbibnamehash}{789d74aa550b6585221f27682e8adb89}
+      \strng{authornamehash}{789d74aa550b6585221f27682e8adb89}
+      \strng{authorfullhash}{789d74aa550b6585221f27682e8adb89}
+      \strng{authorfullhashraw}{789d74aa550b6585221f27682e8adb89}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Tutorial sobre implementación de máquinas de estados finitos (FSM) en Arduino y plataformas compatibles como ESP32. Consultado el 20 de mayo de 2026}
+      \field{title}{Máquina de estados finitos en Arduino}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://www.luisllamas.es/maquina-de-estados-finitos-arduino/
+      \endverb
+      \verb{url}
+      \verb https://www.luisllamas.es/maquina-de-estados-finitos-arduino/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

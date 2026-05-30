@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>Act03.bcf</file>
+      <file>Act05.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>Act03.bbl</file>
+      <file>Act05.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -68,19 +68,19 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>Act03</infile>
+      <infile>Act05</infile>
     </cmdline>
     <input>
-      <file>Act03.bcf</file>
+      <file>Act05.bcf</file>
     </input>
     <output>
-      <file>Act03.bbl</file>
+      <file>Act05.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>Act03.bbl</file>
+      <file>Act05.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>Act03.bcf</file>
+      <file>Act05.bcf</file>
     </requires>
     <requires type="editable">
       <file>referencias.bib</file>

@@ -1,0 +1,59 @@
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+#include <Wire.h>
+
+// Definir los pines I2C para el ESP32-S3
+#define I2C_SDA 8
+#define I2C_SCL 9
+
+Adafruit_MPU6050 mpu;
+
+void setup(void) {
+  Serial.begin(115200);
+  while (!Serial)
+    delay(10); // Pausa para que el puerto serie nativo del S3 se inicie
+
+  Serial.println("Inicializando MPU6050...");
+
+  // Iniciar el bus I2C en los pines específicos
+  Wire.begin(I2C_SDA, I2C_SCL);
+
+  // Intentar conectar con el sensor pasando nuestro bus I2C
+  if (!mpu.begin(0x68, &Wire, 0)) {
+    Serial.println("¡Error al encontrar el chip MPU6050!");
+    while (1) {
+      delay(10);
+    }
+  }
+  Serial.println("MPU6050 encontrado.");
+
+  // Configuración de los rangos de lectura (Opcional, estos son los recomendados)
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+  
+  delay(100);
+}
+
+void loop() {
+  // Crear las variables donde la librería guardará los datos
+  sensors_event_t a, g, temp;
+  
+  // Leer los 7 valores simultáneamente
+  mpu.getEvent(&a, &g, &temp);
+
+  // --- Imprimir Acelerómetro (m/s^2) ---
+  Serial.print("Acel X: "); Serial.print(a.acceleration.x); Serial.print(" | ");
+  Serial.print("Y: "); Serial.print(a.acceleration.y); Serial.print(" | ");
+  Serial.print("Z: "); Serial.print(a.acceleration.z); Serial.print(" m/s^2 \t");
+
+  // --- Imprimir Giroscopio (rad/s) ---
+  Serial.print("Giro X: "); Serial.print(g.gyro.x); Serial.print(" | ");
+  Serial.print("Y: "); Serial.print(g.gyro.y); Serial.print(" | ");
+  Serial.print("Z: "); Serial.print(g.gyro.z); Serial.print(" rad/s \t");
+
+  // --- Imprimir Temperatura (°C) ---
+  Serial.print("Temp: "); Serial.print(temp.temperature); Serial.println(" °C");
+
+  delay(100);
+}

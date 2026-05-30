@@ -1,0 +1,32 @@
+#include "BluetoothSerial.h"
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+BluetoothSerial SerialBT;
+
+void setup() {
+  // Inicializa el puerto USB clásico (para depuración local)
+  Serial.begin(115200);
+  
+  // Inicializa el puerto Bluetooth
+  SerialBT.begin("ESP32_BT_Serial"); 
+  Serial.println("Bluetooth iniciado. Listo para emparejar y enviar datos.");
+}
+
+void loop() {
+  // Genera un número aleatorio entre 0 y 100
+  long numeroAleatorio = random(0, 101);
+
+  // Lo enviamos a través de la conexión Bluetooth
+  SerialBT.print("Prueba BT - Número aleatorio: ");
+  SerialBT.println(numeroAleatorio);
+
+  // También lo imprimimos por el puerto USB tradicional para tener una referencia
+  Serial.print("Enviado por BT: ");
+  Serial.println(numeroAleatorio);
+
+  // Esperamos 1 segundo (1000 milisegundos) antes de enviar el siguiente
+  delay(1000);
+}

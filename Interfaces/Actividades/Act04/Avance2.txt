@@ -1,0 +1,97 @@
+//  Código hecho por: Flores Montero Edsel Yetlanezi & Alfonso Gamboa Ruben
+// --- Librerías ---
+#include "BluetoothSerial.h"
+#include <Arduino.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+
+#include <Wire.h>
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run make menuconfig to and enable it
+#endif
+
+// --- Variables y Constantes ---
+
+// Constantes para que sea más facil entender como queremos movernos
+#define X_SUMA 10
+#define X_RESTA 20
+#define Y_SUMA 30
+#define Y_RESTA 40
+#define RECORTE 50
+
+// Configuracion de los pines
+#define SDA 21
+#define SCL 22
+
+//Dirección del sensor
+# define MPU050_ADDR 0x68
+
+// Configuracion de velocidad de muestreo en Hz
+uint8_t v_muestreo = 125;
+
+// Variables para el tiempo
+unsigned long tiempoActual;
+unsigned long tiempoAnterior = 0;
+
+// --- Funciones ---
+
+// Función para mover alguna coordenada
+unsigned long moverCoordenada( uint8_t eje, unsigned int frecuencia, unsigned long tiempoAnterior){
+ unsigned int periodo = 1000/ frecuencia;
+ if ((tiempoActual - tiempoAnterior)>=periodo){
+   Serial.write(eje);
+   return tiempoActual;
+ }else{
+   return tiempoAnterior;
+ }
+
+}
+
+// Obtención de los datos del acelerometro
+enum Eje { EJE_X, EJE_Y, EJE_Z };
+
+float leerEje(Eje eje) {
+  Wire.beginTransmission(MPU6050_ADDR);
+  Wire.write(0x3B);              // siempre arranca desde ACCEL_XOUT_H
+  Wire.endTransmission(false);
+  Wire.requestFrom(MPU6050_ADDR, 6, true);
+
+  int16_t raw[3];
+  for (int i = 0; i < 3; i++) {
+    raw[i] = (Wire.read() << 8) | Wire.read();
+  }
+
+  return raw[eje] / 16384.0f;
+}
+
+// Leer ejes a una frecuencia
+
+float lecturaSensor(Eje eje,  unsigned int frecuencia){
+
+}
+
+// Filtro de los datos obtenidos
+
+
+
+// --- setup ---
+void setup(){
+  Serial.begin(115200);
+
+  // BLuetooth
+  SerialBT.begin("ESP32_BT_Serial");
+  Serial.println("Bluetooth iniciado. Listo para emparejar y enviar datos.");
+
+  // I2C
+  Wire.beginTransmission(MPU050_ADDR);
+  Wire.write(0x6B); // Registro PWR_MGMT_1
+  Wire.write(0x00); // Activar sensor
+  Wire.endTransmission(true);
+
+}
+// --- loop ---
+void loop(){
+  tiempoActual = milis();
+
+}

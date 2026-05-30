@@ -1,0 +1,67 @@
+#include "BluetoothSerial.h"
+#include <Wire.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
+#endif
+
+BluetoothSerial SerialBT;
+Adafruit_MPU6050 mpu;
+
+// Función para imprimir con el mismo formato del video en cualquier puerto
+void enviarDatos(Stream &salida, sensors_event_t &a, sensors_event_t &g, sensors_event_t &temp) {
+  salida.print("Acceleration: X: "); salida.print(a.acceleration.x, 2); 
+  salida.print(", Y: "); salida.print(a.acceleration.y, 2); 
+  salida.print(", Z: "); salida.print(a.acceleration.z, 2); salida.println(" (m/s^2)");
+
+  salida.print("Rotation:     X: "); salida.print(g.gyro.x, 2); 
+  salida.print(", Y: "); salida.print(g.gyro.y, 2); 
+  salida.print(", Z: "); salida.print(g.gyro.z, 2); salida.println(" (rad/s)");
+
+  salida.print("Temperature:  "); salida.print(temp.temperature, 2); salida.println(" (degC)");
+  salida.println("-----------------------------------------");
+}
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Iniciar el puerto Bluetooth
+  SerialBT.begin("ESP32_MPU6050_BT"); 
+  Serial.println("Bluetooth iniciado. Listo para emparejar.");
+
+  // Inicializar el MPU6050
+  if (!mpu.begin()) {
+    Serial.println("¡No se encontró el chip MPU6050! Revisa las conexiones.");
+    SerialBT.println("¡Error: MPU6050 no encontrado!");
+    while (1) {
+      delay(10);
+    }
+  }
+  Serial.println("MPU6050 encontrado y listo!");
+  
+  // Configuraciones básicas del sensor (las recomendadas por Adafruit)
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+  
+  delay(100);
+}
+
+void loop() {
+  // Variables para almacenar las lecturas
+  sensors_event_t a, g, temp;
+  
+  // Obtener nuevos eventos del sensor
+  mpu.getEvent(&a, &g, &temp);
+
+  // Imprimir por el puerto Serial (cable USB)
+  enviarDatos(Serial, a, g, temp);
+  
+  // Imprimir por Bluetooth (/dev/rfcomm0)
+  enviarDatos(SerialBT, a, g, temp);
+
+  // Esperar medio segundo antes de la siguiente lectura para no saturar la terminal
+  delay(500);
+}

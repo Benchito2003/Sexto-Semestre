@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.3.13)  9 APR 2026 00:24
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026/Arch Linux) (preloaded format=xelatex 2026.4.29)  20 MAY 2026 22:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**Act03.tex
-(./Act03.tex
+**Act05.tex
+(./Act05.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/share/texmf-dist/tex/latex/ieeetran/IEEEtran.cls
@@ -736,13 +736,13 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'spanish'.
- (./Act03.aux
+ (./Act05.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
 (babel)             Reported on input line 12.
 )
-\openout1 = `Act03.aux'.
+\openout1 = `Act05.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
 LaTeX Font Info:    ... okay on input line 39.
@@ -834,17 +834,17 @@ Package biblatex Info: XeTeX detected.
 (biblatex)             Assuming input encoding 'utf8'.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout3 = `Act03.bcf'.
+\openout3 = `Act05.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Act03.bbl' found.
- (./Act03.bbl)
+Package biblatex Info: ... file 'Act05.bbl' found.
+ (./Act05.bbl)
 Package biblatex Info: Reference section=0 on input line 39.
 Package biblatex Info: Reference segment=0 on input line 39.
 Package hyperref Info: Link coloring ON on input line 39.
- (./Act03.out) (./Act03.out)
+ (./Act05.out) (./Act05.out)
 \@outlinefile=\write5
-\openout5 = `Act03.out'.
+\openout5 = `Act05.out'.
 
 File: UV.png Graphic file (type bmp)
 <UV.png>
@@ -856,33 +856,32 @@ File: UV.png Graphic file (type bmp)
 LaTeX Font Warning: Font shape `TU/LiberationSerif(0)/m/sc' undefined
 (Font)              using `TU/LiberationSerif(0)/m/n' instead on input line 90.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
-[]\TU/LiberationSerif(0)/m/sc/10 SW (Switch) - Pin Digital 2 Arduino (Acti-
- []
-
 [1
 
 ]
-File: Funcion1.jpg Graphic file (type bmp)
-<Funcion1.jpg>
- [2]
-File: circuito.jpg Graphic file (type bmp)
-<circuito.jpg>
 \pydata@fh@0=\write6
-\openout6 = `_B43C34AAAB1EB4CE8519A3CF7C4D97D5.data.minted'.
+\openout6 = `_819E505AFDB0C95B15EDAFB69F889AB8.data.minted'.
 
-runsystem(latexminted config  --timestamp 20260409002424 B43C34AAAB1EB4CE8519A3CF7C4D97D5)...executed safely (allowed).
+runsystem(latexminted config  --timestamp 20260520222149 819E505AFDB0C95B15EDAFB69F889AB8)...executed safely (allowed).
 
- (./_B43C34AAAB1EB4CE8519A3CF7C4D97D5.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260409002424 B43C34AAAB1EB4CE8519A3CF7C4D97D5)...executed safely (allowed).
+ (./_819E505AFDB0C95B15EDAFB69F889AB8.config.minted)
+runsystem(latexminted cleanconfig  --timestamp 20260520222149 819E505AFDB0C95B15EDAFB69F889AB8)...executed safely (allowed).
 
- (./_minted/monokai.style.minted) (./_minted/C1E06A541DD3AACCA78FD3E4DD115E08.highlight.minted [3]
+ (./_minted/monokai.style.minted) (./_minted/FB9A279812FB498B084EBEBC1ED7AB5D.highlight.minted
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-) [4]
-File: Firma.jpg Graphic file (type bmp)
-<Firma.jpg>
+ [2])
+File: circuito.jpeg Graphic file (type bmp)
+<circuito.jpeg>
+File: circuito2.jpeg Graphic file (type bmp)
+<circuito2.jpeg>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3]
+File: Firma.jpeg Graphic file (type bmp)
+<Firma.jpeg>
 
 
 ** Conference Paper **
@@ -895,9 +894,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
-
-] (./Act03.aux
+[4] (./Act05.aux
 LaTeX Info: Redefining \sptext on input line 12.
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
@@ -910,19 +907,19 @@ L3 programming layer <2026-01-19>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `Act03.out' has not changed.
-(rerunfilecheck)             Checksum: D8E11EEC10633B8F140C80F066CFDA5F;3442.
-Package logreq Info: Writing requests to 'Act03.run.xml'.
-\openout1 = `Act03.run.xml'.
+Package rerunfilecheck Info: File `Act05.out' has not changed.
+(rerunfilecheck)             Checksum: A41E5E63576E853EC90EA3896A4C8A8C;2141.
+Package logreq Info: Writing requests to 'Act05.run.xml'.
+\openout1 = `Act05.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26534 strings out of 470137
- 561916 string characters out of 5478427
- 1620289 words of memory out of 5000000
- 54784 multiletter control sequences out of 15000+600000
+ 26751 strings out of 470137
+ 566976 string characters out of 5478427
+ 1629817 words of memory out of 5000000
+ 55001 multiletter control sequences out of 15000+600000
  631416 words of font info for 127 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 75i,9n,93p,1308b,4045s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,93p,722b,4886s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Act03.xdv (6 pages, 234600 bytes).
+Output written on Act05.xdv (5 pages, 206312 bytes).

@@ -1,0 +1,104 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{invensense2013mpu6050}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=35953177f983c5c55ad76715ebf43b1f}{%
+           family={{InvenSense Inc.}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {InvenSense Inc.}%
+      }
+      \strng{namehash}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{fullhash}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{fullhashraw}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{bibnamehash}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{authorbibnamehash}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{authornamehash}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{authorfullhash}{35953177f983c5c55ad76715ebf43b1f}
+      \strng{authorfullhashraw}{35953177f983c5c55ad76715ebf43b1f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Document Number: PS-MPU-6000A-00, Revision: 3.4}
+      \field{title}{{MPU-6000 and MPU-6050 Product Specification}}
+      \field{year}{2013}
+    \endentry
+    \entry{espressif2023esp32}{manual}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Espressif Systems}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Versión 4.3}
+      \field{title}{{ESP32 Series Datasheet}}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf
+      \endverb
+    \endentry
+    \entry{adafruit2021mpu6050}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b65705aa9f138bcc5db4617809413e90}{%
+           family={{Adafruit Industries}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{b65705aa9f138bcc5db4617809413e90}
+      \strng{fullhash}{b65705aa9f138bcc5db4617809413e90}
+      \strng{fullhashraw}{b65705aa9f138bcc5db4617809413e90}
+      \strng{bibnamehash}{b65705aa9f138bcc5db4617809413e90}
+      \strng{authorbibnamehash}{b65705aa9f138bcc5db4617809413e90}
+      \strng{authornamehash}{b65705aa9f138bcc5db4617809413e90}
+      \strng{authorfullhash}{b65705aa9f138bcc5db4617809413e90}
+      \strng{authorfullhashraw}{b65705aa9f138bcc5db4617809413e90}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://github.com/adafruit/Adafruit_MPU6050}}
+      \field{note}{Accedido en 2026}
+      \field{title}{{Adafruit MPU6050 Arduino Library}}
+      \field{year}{2021}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

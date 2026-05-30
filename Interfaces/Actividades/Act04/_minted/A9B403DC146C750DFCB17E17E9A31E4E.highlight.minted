@@ -1,0 +1,195 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{// Código desarrollado por Flores Montero Edsel Yetlanezi \PYGZam{}\PYGZam{} Rubén Alfonso Gamboa}
+\PYG{c+c1}{// Pensado para ESP32 clásico con el sensor inercial MPU6050}
+
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}Arduino.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}Wire.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}Adafruit\PYGZus{}MPU6050.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}Adafruit\PYGZus{}Sensor.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}BluetoothSerial.h\PYGZdq{}}
+
+\PYG{c+c1}{// Pines de comunicación para la ESP32}
+\PYG{c+cp}{\PYGZsh{}define I2C\PYGZus{}SDA 21}
+\PYG{c+cp}{\PYGZsh{}define I2C\PYGZus{}SCL 22}
+\PYG{c+cp}{\PYGZsh{}define BOTON\PYGZus{}BOOT 0 }
+
+\PYG{n}{Adafruit\PYGZus{}MPU6050}\PYG{+w}{ }\PYG{n}{mpu}\PYG{p}{;}
+\PYG{n}{BluetoothSerial}\PYG{+w}{ }\PYG{n}{SerialBT}\PYG{p}{;}
+
+\PYG{c+c1}{// ====================================================================}
+\PYG{c+c1}{// =                     ZONA DE CONFIGURACIÓN                        =}
+\PYG{c+c1}{// ====================================================================}
+\PYG{c+c1}{//}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{sensibilidad\PYGZus{}X\PYGZus{}IzquierdaDerecha}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{80}\PYG{p}{;}\PYG{+w}{ }
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{sensibilidad\PYGZus{}Y\PYGZus{}ArribaAbajo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{80}\PYG{p}{;}\PYG{+w}{ }
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{sensibilidad\PYGZus{}Rotacion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{6.0}\PYG{p}{;}\PYG{+w}{ }
+
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{intervalo\PYGZus{}muestreo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{8}\PYG{p}{;}\PYG{+w}{    }\PYG{c+c1}{// Leemos el sensor cada 8 milisegundos}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{intervalo\PYGZus{}envio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{24}\PYG{p}{;}\PYG{+w}{      }\PYG{c+c1}{// Enviamos datos al PC cada 24 milisegundos}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{cooldown\PYGZus{}seleccion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{700}\PYG{p}{;}\PYG{+w}{  }\PYG{c+c1}{// Espera (en ms) entre cada \PYGZdq{}clic\PYGZdq{} para evitar clics dobles accidentales}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{suavizado\PYGZus{}movimiento}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.10}\PYG{p}{;}\PYG{+w}{       }\PYG{c+c1}{// Qué tan suave se mueve (menor = más suave, pero con un poco más de lag)}
+\PYG{c+c1}{// ====================================================================}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Variables internas  \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{umbral\PYGZus{}grados\PYGZus{}X}\PYG{p}{;}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{umbral\PYGZus{}grados\PYGZus{}Y}\PYG{p}{;}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{offset\PYGZus{}Pitch\PYGZus{}Nod}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{offset\PYGZus{}Roll\PYGZus{}Doorknob}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{c+c1}{// Variables para el control de tiempo}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultimo\PYGZus{}muestreo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultimo\PYGZus{}envio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultima\PYGZus{}seleccion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{c+c1}{// Ángulos ya procesados y libres de temblores}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{anguloX\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{anguloY\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Sistema de calibración sin pausas \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{calibrando\PYGZus{}centro}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{muestras\PYGZus{}tomadas}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{suma\PYGZus{}Pitch\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{suma\PYGZus{}Roll\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultima\PYGZus{}muestra\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+
+\PYG{c+c1}{// Convierte tu número del 1 al 100 en grados reales de inclinación para el sensor}
+\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n+nf}{calcularUmbralAngulo}\PYG{p}{(}\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{sensibilidad}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{sensibilidad}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{constrain}\PYG{p}{(}\PYG{n}{sensibilidad}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k}{return}\PYG{+w}{ }\PYG{n}{map}\PYG{p}{(}\PYG{n}{sensibilidad}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{600}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{20}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{p}{;}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Prepara el sistema para empezar a calibrar el \PYGZdq{}centro\PYGZdq{} de tu mano}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{iniciarCalibracion}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{calibrando\PYGZus{}centro}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{muestras\PYGZus{}tomadas}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{suma\PYGZus{}Pitch\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{suma\PYGZus{}Roll\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{c+c1}{// Reiniciamos los ángulos para evitar saltos locos en la pantalla}
+\PYG{+w}{  }\PYG{n}{anguloX\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{anguloY\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{setup}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{c+c1}{// Iniciamos el Bluetooth con el nombre que buscarás en tu computadora}
+\PYG{+w}{  }\PYG{n}{SerialBT}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Sensor\PYGZus{}Mano\PYGZus{}Biomedica\PYGZdq{}}\PYG{p}{);}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{BOTON\PYGZus{}BOOT}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{INPUT\PYGZus{}PULLUP}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{Wire}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{n}{I2C\PYGZus{}SDA}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{I2C\PYGZus{}SCL}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c+c1}{// Si el sensor MPU6050 no está bien conectado, nos quedamos esperando aquí}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{!}\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{l+m+mh}{0x68}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{Wire}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{c+c1}{// Configuramos el sensor para detectar los movimientos humanos típicos}
+\PYG{+w}{  }\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{setAccelerometerRange}\PYG{p}{(}\PYG{n}{MPU6050\PYGZus{}RANGE\PYGZus{}8\PYGZus{}G}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{setGyroRange}\PYG{p}{(}\PYG{n}{MPU6050\PYGZus{}RANGE\PYGZus{}500\PYGZus{}DEG}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{setFilterBandwidth}\PYG{p}{(}\PYG{n}{MPU6050\PYGZus{}BAND\PYGZus{}21\PYGZus{}HZ}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{  }\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{setSampleRateDivisor}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c+c1}{// Calculamos cuánto tiene que girar la mano para registrar un movimiento}
+\PYG{+w}{  }\PYG{n}{umbral\PYGZus{}grados\PYGZus{}X}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{calcularUmbralAngulo}\PYG{p}{(}\PYG{n}{sensibilidad\PYGZus{}X\PYGZus{}IzquierdaDerecha}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{umbral\PYGZus{}grados\PYGZus{}Y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{calcularUmbralAngulo}\PYG{p}{(}\PYG{n}{sensibilidad\PYGZus{}Y\PYGZus{}ArribaAbajo}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c+c1}{// Al encender la placa, calibramos la posición inicial automáticamente}
+\PYG{+w}{  }\PYG{n}{iniciarCalibracion}\PYG{p}{();}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{loop}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{millis}\PYG{p}{();}
+
+\PYG{+w}{  }\PYG{c+c1}{// Si presionas el botón BOOT de la ESP32, re\PYGZhy{}calibramos el centro}
+\PYG{+w}{  }\PYG{c+c1}{// (Solo lo hacemos si no estamos ya calibrando)}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{digitalRead}\PYG{p}{(}\PYG{n}{BOTON\PYGZus{}BOOT}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{LOW}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{o}{!}\PYG{n}{calibrando\PYGZus{}centro}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{iniciarCalibracion}\PYG{p}{();}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// ====================================================================}
+\PYG{+w}{  }\PYG{c+c1}{// 1. FASE DE CALIBRACIÓN (Silenciosa y sin trabar la placa)}
+\PYG{+w}{  }\PYG{c+c1}{// ====================================================================}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{calibrando\PYGZus{}centro}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{c+c1}{// Tomamos una muestra cada 10 milisegundos hasta juntar 15}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultima\PYGZus{}muestra\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{sensors\PYGZus{}event\PYGZus{}t}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{g}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{temp}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{getEvent}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{g}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{temp}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{c+c1}{// Vamos acumulando las lecturas para sacar un promedio después}
+\PYG{+w}{      }\PYG{n}{suma\PYGZus{}Pitch\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{y}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{z}\PYG{p}{)))}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{RAD\PYGZus{}TO\PYGZus{}DEG}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{suma\PYGZus{}Roll\PYGZus{}calibracion}\PYG{+w}{  }\PYG{o}{+=}\PYG{+w}{ }\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{z}\PYG{p}{)))}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{RAD\PYGZus{}TO\PYGZus{}DEG}\PYG{p}{;}
+\PYG{+w}{      }
+\PYG{+w}{      }\PYG{n}{muestras\PYGZus{}tomadas}\PYG{o}{++}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{tiempo\PYGZus{}ultima\PYGZus{}muestra\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}actual}\PYG{p}{;}
+
+\PYG{+w}{      }\PYG{c+c1}{// ¡Listo! Ya tenemos las 15 muestras, sacamos el promedio y terminamos}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{muestras\PYGZus{}tomadas}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{l+m+mi}{15}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{offset\PYGZus{}Pitch\PYGZus{}Nod}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{suma\PYGZus{}Pitch\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mf}{15.0}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{offset\PYGZus{}Roll\PYGZus{}Doorknob}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{suma\PYGZus{}Roll\PYGZus{}calibracion}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mf}{15.0}\PYG{p}{;}
+\PYG{+w}{        }\PYG{n}{calibrando\PYGZus{}centro}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Salimos del modo calibración}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{c+c1}{// Mientras estemos calibrando, no queremos hacer nada más en el loop, así que saltamos al inicio}
+\PYG{+w}{    }\PYG{k}{return}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// ====================================================================}
+\PYG{+w}{  }\PYG{c+c1}{// 2. FASE DE LECTURA NORMAL DEL SENSOR}
+\PYG{+w}{  }\PYG{c+c1}{// ====================================================================}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultimo\PYGZus{}muestreo}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{intervalo\PYGZus{}muestreo}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{sensors\PYGZus{}event\PYGZus{}t}\PYG{+w}{ }\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{g}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{temp}\PYG{p}{;}
+\PYG{+w}{    }\PYG{n}{mpu}\PYG{p}{.}\PYG{n}{getEvent}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{a}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{g}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{temp}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{c+c1}{// Detectamos si hubo un giro o sacudida rápida (lo usamos como \PYGZdq{}clic\PYGZdq{})}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{magnitud\PYGZus{}giro}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{sq}\PYG{p}{(}\PYG{n}{g}\PYG{p}{.}\PYG{n}{gyro}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{sq}\PYG{p}{(}\PYG{n}{g}\PYG{p}{.}\PYG{n}{gyro}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{sq}\PYG{p}{(}\PYG{n}{g}\PYG{p}{.}\PYG{n}{gyro}\PYG{p}{.}\PYG{n}{z}\PYG{p}{));}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{magnitud\PYGZus{}giro}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{sensibilidad\PYGZus{}Rotacion}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{c+c1}{// Validamos el tiempo de espera (cooldown) para no enviar 10 clics en un segundo sin querer}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultima\PYGZus{}seleccion}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{cooldown\PYGZus{}seleccion}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{SerialBT}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{50}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Enviamos la señal de \PYGZdq{}clic\PYGZdq{} o \PYGZdq{}selección\PYGZdq{}}
+\PYG{+w}{        }\PYG{n}{tiempo\PYGZus{}ultima\PYGZus{}seleccion}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}actual}\PYG{p}{;}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{    }\PYG{c+c1}{// Calculamos la inclinación actual de la mano}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{pitch\PYGZus{}crudo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{y}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{x}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{z}\PYG{p}{)))}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{RAD\PYGZus{}TO\PYGZus{}DEG}\PYG{p}{;}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{roll\PYGZus{}crudo}\PYG{+w}{  }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{atan2}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{sq}\PYG{p}{(}\PYG{n}{a}\PYG{p}{.}\PYG{n}{acceleration}\PYG{p}{.}\PYG{n}{z}\PYG{p}{)))}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{RAD\PYGZus{}TO\PYGZus{}DEG}\PYG{p}{;}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{c+c1}{// Le restamos el centro que calibramos para saber cuánto nos movimos desde la posición inicial}
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{lecturaX}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{roll\PYGZus{}crudo}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{offset\PYGZus{}Roll\PYGZus{}Doorknob}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{lecturaY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{pitch\PYGZus{}crudo}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{offset\PYGZus{}Pitch\PYGZus{}Nod}\PYG{p}{;}\PYG{+w}{   }
+
+\PYG{+w}{    }\PYG{c+c1}{// Filtro para suavizar: mezcla un porcentaje del movimiento nuevo con el movimiento anterior}
+\PYG{+w}{    }\PYG{c+c1}{// Esto quita el temblor natural del pulso humano}
+\PYG{+w}{    }\PYG{n}{anguloX\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{suavizado\PYGZus{}movimiento}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{lecturaX}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{p}{((}\PYG{l+m+mf}{1.0}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{suavizado\PYGZus{}movimiento}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{anguloX\PYGZus{}filtrado}\PYG{p}{);}
+\PYG{+w}{    }\PYG{n}{anguloY\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{suavizado\PYGZus{}movimiento}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{lecturaY}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{p}{((}\PYG{l+m+mf}{1.0}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{suavizado\PYGZus{}movimiento}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{anguloY\PYGZus{}filtrado}\PYG{p}{);}
+
+\PYG{+w}{    }\PYG{n}{tiempo\PYGZus{}ultimo\PYGZus{}muestreo}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}actual}\PYG{p}{;}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// ====================================================================}
+\PYG{+w}{  }\PYG{c+c1}{// 3. FASE DE ENVÍO POR BLUETOOTH AL PC}
+\PYG{+w}{  }\PYG{c+c1}{// ====================================================================}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempo\PYGZus{}actual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}ultimo\PYGZus{}envio}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{intervalo\PYGZus{}envio}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{c+c1}{// Movimiento Arriba / Abajo (Eje Y)}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{anguloY\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{umbral\PYGZus{}grados\PYGZus{}Y}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{SerialBT}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{30}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{anguloY\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{umbral\PYGZus{}grados\PYGZus{}Y}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{SerialBT}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{40}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{    }\PYG{c+c1}{// Movimiento Izquierda / Derecha (Eje X)}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{anguloX\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{umbral\PYGZus{}grados\PYGZus{}X}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{SerialBT}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{anguloX\PYGZus{}filtrado}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{umbral\PYGZus{}grados\PYGZus{}X}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{SerialBT}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{20}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{    }\PYG{n}{tiempo\PYGZus{}ultimo\PYGZus{}envio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempo\PYGZus{}actual}\PYG{p}{;}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

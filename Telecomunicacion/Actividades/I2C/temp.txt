@@ -1,0 +1,74 @@
+#include <Wire.h> // librería para I2C
+
+//Definimos una dirección de esclavo
+#define DIRECCION_ESCLAVO 0x10
+
+// variable de control que nos ayuda a cambiar de maestro a esclavo
+bool maestro = false;
+bool i2cActivo = false;
+
+// Banderas globales para la interrupción (OBLIGATORIO usar 'volatile')
+volatile bool hayDatoNuevo = false;
+volatile char letraRecibida;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(21, INPUT_PULLUP);
+  pinMode(22, INPUT_PULLUP);
+  
+}
+
+void loop(){
+  // verificamos si hay datos para mandar
+  if (Serial.available()){
+    // Si esta configurado como esclavo y quedo activa la comunicación, apaga la configuración y ponte en modo maestro
+    if (!maestro && i2cActivo){
+      maestro = true;
+      Wire.end();
+      i2cActivo = false;
+
+      delay(5); // borrable por si realmente necesitamos velocidad
+    }
+
+    // Si no hay comunicacion i2c, iniciala como maestro
+    if (!i2cActivo && maestro){
+      Wire.begin(); // Inicializa el bus I2C en los pines por defecto (SDA = 21, SCL = 22)
+      i2cActivo = true;
+    }
+
+    char c = Serial.read(); // guardamos lo leido en la variable "c"
+    Wire.beginTransmission(DIRECCION_ESCLAVO);
+    Wire.write(c);
+
+    delay(2);
+
+    //Cerramos transmisión de datos
+    Wire.endTransmission();
+  } else {
+    // Si está configurado como maestro y quedó activo la comunicacion I2C, apaga la configuración y ponte en modo esclavo
+    if (maestro && i2cActivo){
+      maestro = false;
+      Wire.end();
+      i2cActivo = false;
+    }
+
+    // Si no hay comunicacion i2c, iniciala como esclavo
+    if (!i2cActivo && !maestro){
+      Wire.begin(DIRECCION_ESCLAVO);
+      Wire.onReceive(recepcion);
+      i2cActivo = true;
+    }
+  }
+
+  if (hayDatoNuevo){
+    Serial.print(letraRecibida);
+    hayDatoNuevo = false;
+  }
+}
+
+void recepcion(int numeroDeBytes){
+  while (Wire.available()){
+    letraRecibida = Wire.read();
+    hayDatoNuevo = true;
+  }
+}

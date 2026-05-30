@@ -1,0 +1,59 @@
+//  Código hecho por: Flores Montero Edsel Yetlanezi & Alfonso Gamboa Ruben
+// --- Librerías ---
+#include "BluetoothSerial.h"
+#include <Arduino.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+
+#if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
+#error Bluetooth is not enabled! Please run make menuconfig to and enable it
+#endif
+
+// --- Variables y Constantes ---
+
+// Constantes para que sea más facil entender como queremos movernos
+#define X+ 10
+#define X- 20
+#define Y+ 30
+#define Y- 40
+
+// Configuracion de los pines
+#define I2C_SDA 8
+#define I2C_SCL 9
+#define BOTON_BOOT 0 
+
+// Configuracion de velocidad de muestreo en Hz
+uint8_t v_muestreo = 125;
+
+// Variables para el tiempo
+unsigned long tiempoActual;
+
+// --- Funciones ---
+
+// Función para mover alguna coordenada
+unsigned long moverCoordenada( uint8_t eje, unsigned int frecuencia, unsigned long tiempoActual, unsigned long tiempoAnterior){
+ unsigned int periodo = 1000/ frecuencia;
+ if ((tiempoActual - tiempoAnterior)>=periodo){
+   Serial.write(eje);
+   return tiempoActual;
+ }else{
+   return tiempoAnterior;
+ }
+
+}
+
+// Función para repetir alguna acción a una velocidad.
+
+// --- setup ---
+void setup(){
+  Serial.begin(115200);
+
+  // Inicia el puerto BLuetooth
+  SerialBT.begin("ESP32_BT_Serial");
+  Serial.println("Bluetooth iniciado. Listo para emparejar y enviar datos.");
+
+}
+// --- loop ---
+void loop(){
+
+}

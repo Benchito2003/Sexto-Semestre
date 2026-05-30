@@ -1,0 +1,119 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}RevEng\PYGZus{}PAJ7620.h\PYGZdq{}}
+
+\PYG{c+cp}{\PYGZsh{}define PIN\PYGZus{}INT   15}
+\PYG{c+cp}{\PYGZsh{}define PIN\PYGZus{}LED   26}
+
+\PYG{c+c1}{// ── Variables modificables fácilmente }
+\PYG{c+c1}{// Frecuencia de envío (en milisegundos). }
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{intervalo\PYGZus{}envio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{24}\PYG{p}{;}\PYG{+w}{ }
+\PYG{c+c1}{// Tiempo máximo (en ms) entre los dos gestos de \PYGZdq{}acercar\PYGZdq{} para mandar el recorte}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{TIEMPO\PYGZus{}MAX\PYGZus{}DOBLE\PYGZus{}ACERCAR}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2000}\PYG{p}{;}\PYG{+w}{ }
+
+\PYG{n}{RevEng\PYGZus{}PAJ7620}\PYG{+w}{ }\PYG{n}{sensor}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RevEng\PYGZus{}PAJ7620}\PYG{p}{();}
+\PYG{n}{Gesture}\PYG{+w}{ }\PYG{n}{gesto}\PYG{p}{;}
+
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoAnterior}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{DEBOUNCE}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{400}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoUltimoEnvio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{c+c1}{// Máquina de estados para las direcciones}
+\PYG{k}{enum}\PYG{+w}{ }\PYG{n+nc}{Estado}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ARRIBA}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ABAJO}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{IZQUIERDA}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DERECHA}\PYG{+w}{ }\PYG{p}{\PYGZcb{};}
+\PYG{n}{Estado}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{;}
+
+\PYG{c+c1}{// Variables para controlar el doble gesto}
+\PYG{k+kt}{bool}\PYG{+w}{ }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoUltimoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{setup}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{l+m+mi}{115200}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{PIN\PYGZus{}INT}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{INPUT\PYGZus{}PULLUP}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{PIN\PYGZus{}LED}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{OUTPUT}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{k}{if}\PYG{p}{(}\PYG{+w}{ }\PYG{o}{!}\PYG{n}{sensor}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{PIN\PYGZus{}LED}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{HIGH}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// prendemos el LED si hay conexión}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{loop}\PYG{p}{()}
+\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{ahora}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{millis}\PYG{p}{();}
+
+\PYG{+w}{  }\PYG{c+c1}{// 1. LECTURA DE GESTOS }
+\PYG{+w}{  }\PYG{k}{if}\PYG{p}{(}\PYG{n}{digitalRead}\PYG{p}{(}\PYG{n}{PIN\PYGZus{}INT}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{p}{(}\PYG{n}{ahora}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempoAnterior}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{DEBOUNCE}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{tiempoAnterior}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ahora}\PYG{p}{;}
+\PYG{+w}{      }\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{PIN\PYGZus{}LED}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{HIGH}\PYG{p}{);}
+
+\PYG{+w}{      }\PYG{n}{gesto}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{sensor}\PYG{p}{.}\PYG{n}{readGesture}\PYG{p}{();}
+
+\PYG{+w}{      }\PYG{k}{switch}\PYG{p}{(}\PYG{n}{gesto}\PYG{p}{)}
+\PYG{+w}{      }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{GES\PYGZus{}UP}\PYG{p}{:}\PYG{+w}{       }
+\PYG{+w}{          }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Cancela la espera del doble gesto}
+\PYG{+w}{          }\PYG{k}{if}\PYG{p}{(}\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{ABAJO}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{else}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ARRIBA}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{          }
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{GES\PYGZus{}DOWN}\PYG{p}{:}\PYG{+w}{     }
+\PYG{+w}{          }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{          }\PYG{k}{if}\PYG{p}{(}\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{ARRIBA}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{else}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ABAJO}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{          }
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{GES\PYGZus{}LEFT}\PYG{p}{:}\PYG{+w}{     }
+\PYG{+w}{          }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{          }\PYG{k}{if}\PYG{p}{(}\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{DERECHA}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{else}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{IZQUIERDA}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{          }
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{GES\PYGZus{}RIGHT}\PYG{p}{:}\PYG{+w}{    }
+\PYG{+w}{          }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}
+\PYG{+w}{          }\PYG{k}{if}\PYG{p}{(}\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{IZQUIERDA}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{else}\PYG{+w}{ }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DERECHA}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }
+\PYG{+w}{        }\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} LÓGICA DE DOBLE \PYGZdq{}ACERCAR\PYGZdq{} \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{GES\PYGZus{}FORWARD}\PYG{p}{:}\PYG{+w}{  }
+\PYG{+w}{          }\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// El primer efecto siempre es detener el movimiento}
+\PYG{+w}{          }
+\PYG{+w}{          }\PYG{c+c1}{// Si ya habíamos acercado recientemente y no hemos superado el tiempo límite}
+\PYG{+w}{          }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{ahora}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempoUltimoAcercar}\PYG{+w}{ }\PYG{o}{\PYGZlt{}=}\PYG{+w}{ }\PYG{n}{TIEMPO\PYGZus{}MAX\PYGZus{}DOBLE\PYGZus{}ACERCAR}\PYG{p}{))}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{50}\PYG{p}{);}\PYG{+w}{                 }\PYG{c+c1}{// Es el segundo acercar consecutivo, envía el comando}
+\PYG{+w}{            }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;}\PYG{+w}{  }\PYG{c+c1}{// Reinicia para necesitar otros 2 gestos para el próximo recorte}
+\PYG{+w}{          }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{c+c1}{// Es el primer acercar (o pasó demasiado tiempo desde el último)}
+\PYG{+w}{            }\PYG{n}{esperandoSegundoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;}
+\PYG{+w}{            }\PYG{n}{tiempoUltimoAcercar}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ahora}\PYG{p}{;}
+\PYG{+w}{          }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{          }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{          }
+\PYG{+w}{        }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{      }\PYG{n}{digitalWrite}\PYG{p}{(}\PYG{n}{PIN\PYGZus{}LED}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{LOW}\PYG{p}{);}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// 2. ENVÍO CONTINUO DE COMANDOS SIN RETARDOS}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoActual}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{n}{STOP}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{ahora}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempoUltimoEnvio}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{intervalo\PYGZus{}envio}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{tiempoUltimoEnvio}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{ahora}\PYG{p}{;}
+
+\PYG{+w}{      }\PYG{k}{switch}\PYG{p}{(}\PYG{n}{estadoActual}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{ARRIBA}\PYG{p}{:}\PYG{+w}{    }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{30}\PYG{p}{);}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{ABAJO}\PYG{p}{:}\PYG{+w}{     }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{40}\PYG{p}{);}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{IZQUIERDA}\PYG{p}{:}\PYG{+w}{ }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{20}\PYG{p}{);}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{case}\PYG{+w}{ }\PYG{n+no}{DERECHA}\PYG{p}{:}\PYG{+w}{   }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{);}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }\PYG{k}{default}\PYG{o}{:}\PYG{+w}{ }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}

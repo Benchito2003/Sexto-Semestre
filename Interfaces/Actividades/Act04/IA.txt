@@ -1,0 +1,227 @@
+//  Código fusionado y adaptado para ESP32-S3 (BLE) 
+//  Por: Flores Montero Edsel Yetlanezi y Alfonso Gamboa Ruben
+// --- Librerías ---
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+
+// Librerías de Bluetooth Low Energy (Nativas del ESP32-S3)
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLEUtils.h>
+#include <BLE2902.h>
+
+// --- Configuración BLE ---
+// Los UUIDs son identificadores únicos universales para que Windows sepa a qué conectarse.
+// Generados específicamente para este proyecto.
+#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+
+BLEServer* pServer = NULL;
+BLECharacteristic* pCharacteristic = NULL;
+bool dispositivoConectado = false;
+bool dispositivoConectadoAnteriormente = false;
+
+// Clase para manejar cuando Windows se conecta o desconecta
+class MisCallbacksDeServidor: public BLEServerCallbacks {
+    void onConnect(BLEServer* pServer) {
+      dispositivoConectado = true;
+      Serial.println("-> ¡Cliente BLE conectado!");
+    };
+
+    void onDisconnect(BLEServer* pServer) {
+      dispositivoConectado = false;
+      Serial.println("-> Cliente BLE desconectado.");
+    }
+};
+
+// --- Objetos de Hardware ---
+Adafruit_MPU6050 mpu;
+
+// --- Constantes y Pines ---
+#define DIR_X_POS 10
+#define DIR_X_NEG 20
+#define DIR_Y_POS 30
+#define DIR_Y_NEG 40
+#define ACCION_GIRO 50
+
+#define I2C_SDA 8
+#define I2C_SCL 9
+#define BOTON_BOOT 0 
+
+// --- Configuración de Sensibilidad ---
+int sensibilidad_X = 80; 
+int sensibilidad_Y = 80; 
+float sensibilidad_Rotacion = 6.0;
+
+// Velocidad de muestreo en Hz (20 Hz = 50ms de periodo)
+uint8_t v_muestreo = 20; 
+
+// --- Variables Globales ---
+float umbral_fisico_X;
+float umbral_fisico_Y;
+float offset_X = 0;
+float offset_Y = 0;
+
+unsigned long tiempo_ultimo_envio = 0;
+unsigned long tiempo_ultima_seleccion = 0;
+unsigned long cooldown_seleccion = 500; 
+
+// --- Funciones Propias ---
+
+// Tu función original, adaptada para Notificaciones BLE
+unsigned long moverCoordenada(uint8_t comando, uint8_t frecuencia, unsigned long tiempoActual, unsigned long tiempoAnterior) {
+  unsigned int periodo = 1000 / frecuencia;
+  
+  if ((tiempoActual - tiempoAnterior) >= periodo) {
+    // 1. Imprimimos por cable serial para debugear
+    Serial.print("Comando detectado: ");
+    Serial.println(comando);
+
+    // 2. Si hay alguien conectado por Bluetooth, le notificamos
+    if (dispositivoConectado) {
+      // BLE envía arreglos de bytes, así que empaquetamos tu comando
+      pCharacteristic->setValue((uint8_t*)&comando, 1);
+      pCharacteristic->notify(); 
+    }
+    
+    return tiempoActual;
+  } else {
+    return tiempoAnterior;
+  }
+}
+
+float calcularUmbralGravedad(int sensibilidad) {
+  sensibilidad = constrain(sensibilidad, 1, 100);
+  return map(sensibilidad, 1, 100, 700, 100) / 100.0; 
+}
+
+void establecerPuntoDeReferencia() {
+  float suma_X = 0;
+  float suma_Y = 0;
+  Serial.println("Calibrando centro (No muevas el sensor)...");
+  
+  for(int i = 0; i < 10; i++) {
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
+    suma_X += a.acceleration.x;
+    suma_Y += a.acceleration.y;
+    delay(10); 
+  }
+  
+  offset_X = suma_X / 10.0;
+  offset_Y = suma_Y / 10.0;
+  Serial.println("Calibración terminada.");
+}
+
+// --- Setup ---
+void setup() {
+  Serial.begin(115200);
+  Serial.println("\nIniciando sistema ESP32-S3...");
+
+  // Inicialización del Sensor
+  pinMode(BOTON_BOOT, INPUT_PULLUP);
+  Wire.begin(I2C_SDA, I2C_SCL);
+
+  if (!mpu.begin(0x68, &Wire)) {
+    Serial.println("Error crítico: MPU6050 no encontrado.");
+    while (1) { delay(10); }
+  }
+  
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+
+  umbral_fisico_X = calcularUmbralGravedad(sensibilidad_X);
+  umbral_fisico_Y = calcularUmbralGravedad(sensibilidad_Y);
+  establecerPuntoDeReferencia();
+
+  // Inicialización del Servidor BLE
+  Serial.println("Configurando Bluetooth Low Energy...");
+  BLEDevice::init("Control_ESP32S3"); // Nombre que verás en Windows
+  pServer = BLEDevice::createServer();
+  pServer->setCallbacks(new MisCallbacksDeServidor());
+
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+
+  // Creamos la característica con propiedades de lectura y notificación
+  pCharacteristic = pService->createCharacteristic(
+                      CHARACTERISTIC_UUID,
+                      BLECharacteristic::PROPERTY_READ   |
+                      BLECharacteristic::PROPERTY_NOTIFY
+                    );
+
+  // Descriptor necesario para que las notificaciones funcionen
+  pCharacteristic->addDescriptor(new BLE2902());
+
+  pService->start();
+  
+  // Empezar a anunciarse para que Windows lo pueda encontrar
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->setScanResponse(false);
+  pAdvertising->setMinPreferred(0x0);
+  BLEDevice::startAdvertising();
+  
+  Serial.println("BLE iniciado. Esperando conexión...");
+}
+
+// --- Loop ---
+void loop() {
+  unsigned long tiempo_actual = millis();
+
+  // Gestión de reconexión BLE (Vital para que no "desaparezca" si se desconecta)
+  if (!dispositivoConectado && dispositivoConectadoAnteriormente) {
+      delay(500); // Dar tiempo a la pila Bluetooth
+      pServer->startAdvertising(); // Volver a anunciarse
+      Serial.println("Reiniciando anuncio BLE. Esperando nueva conexión...");
+      dispositivoConectadoAnteriormente = dispositivoConectado;
+  }
+  if (dispositivoConectado && !dispositivoConectadoAnteriormente) {
+      dispositivoConectadoAnteriormente = dispositivoConectado;
+  }
+
+  // 1. Recalibración Manual
+  if (digitalRead(BOTON_BOOT) == LOW) {
+    establecerPuntoDeReferencia();
+  }
+
+  // 2. Lectura constante de inercia
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  // 3. Detección de Giro
+  float magnitud_giro = sqrt(sq(g.gyro.x) + sq(g.gyro.y) + sq(g.gyro.z));
+  if (magnitud_giro > sensibilidad_Rotacion) {
+    if (tiempo_actual - tiempo_ultima_seleccion >= cooldown_seleccion) {
+      Serial.println("GIRO DETECTADO"); // Log por cable
+      if (dispositivoConectado) {
+        uint8_t comando_giro = ACCION_GIRO;
+        pCharacteristic->setValue(&comando_giro, 1);
+        pCharacteristic->notify();
+      }
+      tiempo_ultima_seleccion = tiempo_actual;
+    }
+  }
+
+  // 4. Lógica de Aceleración 
+  float accX_relativa = a.acceleration.x - offset_X;
+  float accY_relativa = a.acceleration.y - offset_Y;
+  
+  uint8_t comando_movimiento = 0; 
+
+  if (accX_relativa > umbral_fisico_X) {
+    comando_movimiento = DIR_X_POS;
+  } else if (accX_relativa < -umbral_fisico_X) {
+    comando_movimiento = DIR_X_NEG;
+  } else if (accY_relativa > umbral_fisico_Y) {
+    comando_movimiento = DIR_Y_POS;
+  } else if (accY_relativa < -umbral_fisico_Y) {
+    comando_movimiento = DIR_Y_NEG;
+  }
+
+  if (comando_movimiento != 0) {
+    tiempo_ultimo_envio = moverCoordenada(comando_movimiento, v_muestreo, tiempo_actual, tiempo_ultimo_envio);
+  }
+}

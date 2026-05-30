@@ -11,7 +11,7 @@ Fecha: 2026-04-16
 - [[Transformada discretizada de Fourier (DFT)]]
 - [[Análisis en frecuencia de señales utilizando la DFT]]
 - [[Filtro antialiasing]]
-- 
+- [[Densidad espectral cruzada]]
 
 ## Notas rápidas
 - Hay que muestrear con un número de muestras mayor a la duración de la señal.
