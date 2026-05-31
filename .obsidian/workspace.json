@@ -4,19 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "cc0aad42b1c1a8ea",
+        "id": "a8036773825848c7",
         "type": "tabs",
         "children": [
           {
-            "id": "754be6d68928d89d",
+            "id": "3df4feb7abdfa3cb",
             "type": "leaf",
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Literacidad/Actividades/Act14/ACT14b_RubenAlfonso.pdf"
+                "file": "Pensamiento/Actividades/Act09/ED09_AlfonsoRuben.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "ACT14b_RubenAlfonso"
+              "title": "ED09_AlfonsoRuben"
             }
           }
         ]
@@ -182,25 +182,36 @@
       "obsidian-excalidraw-plugin:Nuevo Bosquejo": false
     }
   },
-  "active": "754be6d68928d89d",
+  "active": "ba3a2157ec29bf7a",
   "lastOpenFiles": [
+    "Pensamiento/Actividades/Act10/ED10_RubenAlfonso.docx",
+    "Pensamiento/Actividades/Act10/ED10_RubenAlfonso.md~",
+    "Pensamiento/Actividades/Act10/ED10_RubenAlfonso.md",
+    "Pensamiento/Actividades/Act08/ED08_RIVERAGONZALEZ.docx.docx",
+    "Pensamiento/Actividades/Act08/ED08_ArcherLilian.docx",
+    "Pensamiento/Actividades/Act09/Act09-De-la-instrumentacion-del-pensamiento-critico-ACRISPO.pdf",
+    "Pensamiento/Actividades/Act09/Act09-Capitulo-4-programa-ARDESOS-DIAPROVE.pdf",
+    "Pensamiento/Actividades/Act05/ED05_RubenAlfonso.canvas",
+    "Pensamiento/Actividades/Act08/ED08_RubenAlfonso.md~",
+    "Pensamiento/Actividades/Act08/ED08_RubenAlfonso.docx",
+    "Pensamiento/Actividades/Act08/ED08_RubenAlfonso.md",
+    "Pensamiento/Actividades/Act05/ED05_RubenAlfonso.png",
+    "Pensamiento/Actividades/Act05/Sin título.md",
+    "Pensamiento/Actividades/Act03/ED03-RubenAlfonso.md",
+    "Pensamiento/Actividades/Act03/ED03-RubenAlfonso.pdf",
+    "Pensamiento/Actividades/Act03/ACT-03-PEN.md",
+    "Pensamiento/Actividades/Act02/ED02_RubenAlfonso.canvas",
+    "Pensamiento/Actividades/Act02/ED02_RubenAlfonso.png",
+    "Pensamiento/Actividades/Act02/HPCyC-Toma-de-decisiones.pdf.part",
+    "Pensamiento/Actividades/Act02/HPCyC-Toma-de-decisiones.pdf",
+    "Pensamiento/Actividades/Act02/ACT-02-PEN.md",
     "Literacidad/Actividades/Act14/ACT14b_RubenAlfonso.svg",
     "Literacidad/Actividades/Act14/ACT14c_RubenAlfonso.png",
     "Literacidad/Actividades/Act14/ACT14c_RubenAlfonso.canvas",
     "Literacidad/Actividades/Act14/ACT14a_RubenAlfonso.md",
-    "Literacidad/Actividades/Act14/ACT14a_RubenAlfonso.pdf",
     "Excalidraw/Drawing 2026-05-29 22.36.12.excalidraw.md",
-    "Excalidraw",
-    "Literacidad/Actividades/Act14/ACT14b_RubenAlfonso.pdf",
-    "Literacidad/Actividades/Act14/ACT14_RubenAlfonso.md~",
     "Literacidad/Actividades/Act14/Sin título.md",
     "Interfaces/MOC-Interfaces.md",
-    "Literacidad/Actividades/Act04/ACT14_RubenAlfonso.md~",
-    "Interfaces/Actividades/Act05/_819E505AFDB0C95B15EDAFB69F889AB8.config.minted",
-    "Interfaces/Actividades/Act05/_819E505AFDB0C95B15EDAFB69F889AB8.data.minted",
-    "Interfaces/Actividades/Act05/Act05.synctex(busy)",
-    "Interfaces/Actividades/Act05/xelatex101139.fls",
-    "Interfaces/Actividades/Act05/xelatex101118.fls",
     "Interfaces/Actividades/Act05/Firma.jpeg",
     "Interfaces/Actividades/Act05/circuito.jpeg",
     "Interfaces/Actividades/Act05/Circuito.jpeg",
@@ -220,16 +231,7 @@
     "Procesamiento/Clases/procesamiento-2026-02-26.md",
     "Procesamiento/Clases/procesamiento-2026-02-25.md",
     "Procesamiento/Clases/procesamiento-2026-02-12.md",
-    "Procesamiento/Clases/procesamiento-2026-02-11.md",
-    "Procesamiento/Clases/procesamiento-2026-04-24.md",
-    "Procesamiento/Tareas/Tarea-01-PRO.md",
-    "Pensamiento/Actividades/Act07/ACT-07-PEN.md",
-    "Pensamiento/Actividades/Act09/ACT-09-PEN.md",
     "Pasted image 20260417162014.png",
-    "Interfaces/interfaces-2026-04-13.md",
-    "Interfaces/Actividades/Act03/Funcion1.jpg",
-    "Interfaces/Actividades/Act03/WhatsApp Image 2026-04-08 at 22.44.16.jpeg",
-    "Interfaces/Actividades/Act03/Firma.jpg",
-    "Interfaces/Actividades/Act03/circuito.jpg"
+    "Interfaces/Actividades/Act03/Funcion1.jpg"
   ]
 }

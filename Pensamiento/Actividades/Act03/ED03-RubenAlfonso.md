@@ -1,0 +1,12 @@
+# Bitácora COL (Nivel 3) - Experiencia en el Curso
+**Nombre:** Rubén Alfonso Gamboa
+**Fecha:** 30 de mayo de 2026
+
+| Pregunta COL                          | Mi Reflexión (Ejemplo a adaptar)                                                                                                                                                                                                           |
+| :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **¿Qué pasó?** (Hechos)               | Me enfrenté a lecturas densas sobre habilidades de pensamiento, donde la información no estaba estructurada como un proceso técnico claro, sino como reflexiones abstractas.                                                               |
+| **¿Qué sentí?** (Emociones)           | Frustración inicial al leer textos que se van por las ramas sin definir variables claras. Después, alivio al encontrar un método para extraer solo las definiciones operativas (como extraer el código útil de una documentación extensa). |
+| **¿Qué aprendí?** (Cognición)         | Aprendí a filtrar la "paja" de los textos teóricos. Comprendí la diferencia técnica entre "solucionar" (crear una salida nueva a un problema) y "resolver" (aplicar un parche o método ya conocido).                                       |
+| **¿Qué presiento?** (Intuición)       | Que este tipo de pensamiento crítico me será más útil para estructurar la arquitectura de mis proyectos (bases de datos, servidores, código) que para memorizar conceptos de un glosario.                                                  |
+| **¿Qué integro?** (Conexión)          | Integro la "toma de decisiones reflexiva" a mi forma de hacer *troubleshooting*. Antes probaba cosas al azar; ahora sé que debo aislar variables y evaluar consecuencias.                                                                  |
+| **¿Qué utilidad tiene?** (Aplicación) | Me sirve para la autogestión. Si puedo analizar cómo pienso, puedo detectar dónde está fallando mi lógica antes de ejecutar un proceso completo.                                                                                           |

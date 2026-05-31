@@ -1,0 +1,43 @@
+{
+	"nodes":[
+		{"id":"f1a8befd752cc093","x":-385,"y":591,"width":250,"height":60,"type":"text","text":"Solución de Problemas."},
+		{"id":"3227015b11ef1146","x":-1037,"y":781,"width":250,"height":60,"type":"text","text":"¿Qué es un problema?"},
+		{"id":"8e89f89142ddd6e7","x":-645,"y":804,"width":260,"height":75,"type":"text","text":"¿Qué es la solución de un problema?"},
+		{"id":"d019a6dddc16ae23","x":-661,"y":944,"width":292,"height":252,"type":"text","text":"Es el acto de dar por terminada una duda o dificultad teórica/práctica por _primera vez_. Implica adquirir un nuevo aprendizaje para remover un obstáculo desconocido."},
+		{"id":"afbfee3f1425249d","x":-1147,"y":920,"width":360,"height":219,"type":"text","text":"Es la observación de un obstáculo o una necesidad que interrumpe a un sistema. Para superar este obstáculo, el sistema se ve obligado a utilizar aprendizajes previos o a adquirir aprendizajes completamente nuevos."},
+		{"id":"8f915040e301d6b2","x":-320,"y":841,"width":250,"height":60,"type":"text","text":"¿Que es la resolución de un problema?"},
+		{"id":"7c8701efc6c107e1","x":-308,"y":1021,"width":308,"height":239,"type":"text","text":"Es la aplicación de una solución que ya existía previamente para arreglar una situación análoga o idéntica. Es decir, usar un aprendizaje previo para superar un obstáculo ya tipificado."},
+		{"id":"922aa981dd7a3d11","x":500,"y":591,"width":250,"height":60,"type":"text","text":"Toma de decisiones."},
+		{"id":"fc3d64d4e48c5789","x":119,"y":960,"width":230,"height":258,"type":"text","text":"Proceso de razonamiento donde se elige la mejor alternativa disponible frente a un problema, evaluando sus consecuencias"},
+		{"id":"7346ce9dec15c115","x":200,"y":781,"width":250,"height":60,"type":"text","text":"Definición"},
+		{"id":"22078f396d36f541","x":510,"y":783,"width":250,"height":60,"type":"text","text":"Tipos de decisiones"},
+		{"id":"c9bddd5f587062b5","x":404,"y":913,"width":256,"height":108,"type":"text","text":"_Pre-reflexivas:_ Reactivas e impulsivas (rápidas)."},
+		{"id":"588f202afad43141","x":670,"y":901,"width":180,"height":250,"type":"text","text":"_Reflexivas:_ Analíticas, críticas y fundamentadas (lentas, propias del nivel universitario y profesional)."},
+		{"id":"a799462d5fa8e0da","x":850,"y":783,"width":150,"height":60,"type":"text","text":"Contextos"},
+		{"id":"1df980110905003f","x":1080,"y":679,"width":250,"height":60,"type":"text","text":"Certidubmbre"},
+		{"id":"28f1bd1fac59bb5b","x":1080,"y":739,"width":250,"height":60,"type":"text","text":"Incertidumbre"},
+		{"id":"f9704071d069eb71","x":1080,"y":811,"width":250,"height":60,"type":"text","text":"Estratégico"},
+		{"id":"a1fcf34f4b8f6204","x":1080,"y":871,"width":250,"height":60,"type":"text","text":"Grupal"},
+		{"id":"994991d4d0a237f1","x":0,"y":360,"width":265,"height":92,"type":"text","text":"Habilidades de pensamiento crítico."}
+	],
+	"edges":[
+		{"id":"f9bb525834887a9f","fromNode":"994991d4d0a237f1","fromSide":"bottom","toNode":"f1a8befd752cc093","toSide":"top"},
+		{"id":"9e5f3df9aee7e6a6","fromNode":"994991d4d0a237f1","fromSide":"bottom","toNode":"922aa981dd7a3d11","toSide":"top"},
+		{"id":"2a74a4e7c186c66b","fromNode":"f1a8befd752cc093","fromSide":"bottom","toNode":"3227015b11ef1146","toSide":"top"},
+		{"id":"297aaf8fb8bc1a13","fromNode":"3227015b11ef1146","fromSide":"bottom","toNode":"afbfee3f1425249d","toSide":"top"},
+		{"id":"85ad89f23a378259","fromNode":"f1a8befd752cc093","fromSide":"bottom","toNode":"8e89f89142ddd6e7","toSide":"top"},
+		{"id":"cef21949f10f89f8","fromNode":"8e89f89142ddd6e7","fromSide":"bottom","toNode":"d019a6dddc16ae23","toSide":"top"},
+		{"id":"197185044c52807e","fromNode":"f1a8befd752cc093","fromSide":"bottom","toNode":"8f915040e301d6b2","toSide":"top"},
+		{"id":"0c2310b859b08f9c","fromNode":"8f915040e301d6b2","fromSide":"bottom","toNode":"7c8701efc6c107e1","toSide":"top"},
+		{"id":"816f3a33fdc0cda8","fromNode":"922aa981dd7a3d11","fromSide":"bottom","toNode":"7346ce9dec15c115","toSide":"top"},
+		{"id":"fb35338d284a3375","fromNode":"7346ce9dec15c115","fromSide":"bottom","toNode":"fc3d64d4e48c5789","toSide":"top"},
+		{"id":"bf2465e38c59e998","fromNode":"922aa981dd7a3d11","fromSide":"bottom","toNode":"22078f396d36f541","toSide":"top"},
+		{"id":"da6865972aac3a17","fromNode":"22078f396d36f541","fromSide":"bottom","toNode":"c9bddd5f587062b5","toSide":"top"},
+		{"id":"7b8aa5d32a806554","fromNode":"22078f396d36f541","fromSide":"bottom","toNode":"588f202afad43141","toSide":"top"},
+		{"id":"8c5a88255ddf6776","fromNode":"922aa981dd7a3d11","fromSide":"bottom","toNode":"a799462d5fa8e0da","toSide":"top"},
+		{"id":"6b03971010d17a0d","fromNode":"a799462d5fa8e0da","fromSide":"right","toNode":"1df980110905003f","toSide":"left"},
+		{"id":"956f11ff419ed337","fromNode":"a799462d5fa8e0da","fromSide":"right","toNode":"28f1bd1fac59bb5b","toSide":"left"},
+		{"id":"bfe1e1dfd83e7605","fromNode":"a799462d5fa8e0da","fromSide":"right","toNode":"f9704071d069eb71","toSide":"left"},
+		{"id":"08db89d8f1c32e69","fromNode":"a799462d5fa8e0da","fromSide":"right","toNode":"a1fcf34f4b8f6204","toSide":"left"}
+	]
+}
