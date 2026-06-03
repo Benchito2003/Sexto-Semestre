@@ -1,22 +1,24 @@
 {
   "main": {
-    "id": "cf82c2559ce6e16e",
+    "id": "267c85226902ed08",
     "type": "split",
     "children": [
       {
-        "id": "a8036773825848c7",
+        "id": "9b9dbc88b29ca2c5",
         "type": "tabs",
         "children": [
           {
-            "id": "3df4feb7abdfa3cb",
+            "id": "06f52a666d1bbaf2",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "markdown",
               "state": {
-                "file": "Pensamiento/Actividades/Act09/ED09_AlfonsoRuben.pdf"
+                "file": "Sistemas/Proyecto/Software.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-file-text",
-              "title": "ED09_AlfonsoRuben"
+              "icon": "lucide-file",
+              "title": "Software"
             }
           }
         ]
@@ -25,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "c07cdfce26f3df1c",
+    "id": "5df6df0c4fddb4c8",
     "type": "split",
     "children": [
       {
-        "id": "562f071fb8c06c31",
+        "id": "11b35ce8ddbd1a7a",
         "type": "tabs",
         "children": [
           {
-            "id": "ba3a2157ec29bf7a",
+            "id": "47ed7c19f46bbca7",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -46,7 +48,7 @@
             }
           },
           {
-            "id": "3a3e814513afbd9c",
+            "id": "d9368cedebef5e6a",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -63,7 +65,7 @@
             }
           },
           {
-            "id": "467cb05721a9f966",
+            "id": "18622f3625dd528b",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -79,20 +81,20 @@
     "width": 300
   },
   "right": {
-    "id": "bd0189a1c08c287f",
+    "id": "84fed47b966172b5",
     "type": "split",
     "children": [
       {
-        "id": "4df03733e94a516d",
+        "id": "afe2e220ef2ad357",
         "type": "tabs",
         "children": [
           {
-            "id": "9bc6618f4c474525",
+            "id": "39b9d1d4f66219e6",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Telecomunicacion/MOC-Telecomunicacion.md",
+                "file": "Telecomunicacion/Temas/Unidad 4.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,25 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes de MOC-Telecomunicacion"
+              "title": "Enlaces entrantes de Unidad 4"
             }
           },
           {
-            "id": "d9f0cc43335909c8",
+            "id": "af73a678704e2e15",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Telecomunicacion/MOC-Telecomunicacion.md",
+                "file": "Telecomunicacion/Temas/Unidad 4.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Enlaces salientes de MOC-Telecomunicacion"
+              "title": "Enlaces salientes de Unidad 4"
             }
           },
           {
-            "id": "d7b7eab10ca19024",
+            "id": "ee15691089d917ba",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -135,7 +137,7 @@
             }
           },
           {
-            "id": "38d51136e6acdb70",
+            "id": "da20163ffd21bff3",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -149,18 +151,18 @@
             }
           },
           {
-            "id": "b4f33df58be2eac9",
+            "id": "2d05207f12fd73c8",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Telecomunicacion/MOC-Telecomunicacion.md",
+                "file": "Telecomunicacion/Temas/Unidad 4.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de MOC-Telecomunicacion"
+              "title": "Esquema de Unidad 4"
             }
           }
         ]
@@ -182,56 +184,16 @@
       "obsidian-excalidraw-plugin:Nuevo Bosquejo": false
     }
   },
-  "active": "ba3a2157ec29bf7a",
+  "active": "06f52a666d1bbaf2",
   "lastOpenFiles": [
-    "Pensamiento/Actividades/Act10/ED10_RubenAlfonso.docx",
-    "Pensamiento/Actividades/Act10/ED10_RubenAlfonso.md~",
-    "Pensamiento/Actividades/Act10/ED10_RubenAlfonso.md",
-    "Pensamiento/Actividades/Act08/ED08_RIVERAGONZALEZ.docx.docx",
-    "Pensamiento/Actividades/Act08/ED08_ArcherLilian.docx",
-    "Pensamiento/Actividades/Act09/Act09-De-la-instrumentacion-del-pensamiento-critico-ACRISPO.pdf",
-    "Pensamiento/Actividades/Act09/Act09-Capitulo-4-programa-ARDESOS-DIAPROVE.pdf",
-    "Pensamiento/Actividades/Act05/ED05_RubenAlfonso.canvas",
-    "Pensamiento/Actividades/Act08/ED08_RubenAlfonso.md~",
-    "Pensamiento/Actividades/Act08/ED08_RubenAlfonso.docx",
-    "Pensamiento/Actividades/Act08/ED08_RubenAlfonso.md",
-    "Pensamiento/Actividades/Act05/ED05_RubenAlfonso.png",
-    "Pensamiento/Actividades/Act05/Sin título.md",
-    "Pensamiento/Actividades/Act03/ED03-RubenAlfonso.md",
-    "Pensamiento/Actividades/Act03/ED03-RubenAlfonso.pdf",
-    "Pensamiento/Actividades/Act03/ACT-03-PEN.md",
-    "Pensamiento/Actividades/Act02/ED02_RubenAlfonso.canvas",
-    "Pensamiento/Actividades/Act02/ED02_RubenAlfonso.png",
-    "Pensamiento/Actividades/Act02/HPCyC-Toma-de-decisiones.pdf.part",
-    "Pensamiento/Actividades/Act02/HPCyC-Toma-de-decisiones.pdf",
-    "Pensamiento/Actividades/Act02/ACT-02-PEN.md",
-    "Literacidad/Actividades/Act14/ACT14b_RubenAlfonso.svg",
-    "Literacidad/Actividades/Act14/ACT14c_RubenAlfonso.png",
-    "Literacidad/Actividades/Act14/ACT14c_RubenAlfonso.canvas",
-    "Literacidad/Actividades/Act14/ACT14a_RubenAlfonso.md",
-    "Excalidraw/Drawing 2026-05-29 22.36.12.excalidraw.md",
-    "Literacidad/Actividades/Act14/Sin título.md",
-    "Interfaces/MOC-Interfaces.md",
-    "Interfaces/Actividades/Act05/Firma.jpeg",
-    "Interfaces/Actividades/Act05/circuito.jpeg",
-    "Interfaces/Actividades/Act05/Circuito.jpeg",
-    "Interfaces/Actividades/Act05/WhatsApp Image 2026-05-20 at 18.00.21.jpeg",
-    "Procesamiento/Clases/procesamiento-2026-05-18.md",
-    "Procesamiento/Clases/procesamiento-2026-05-06.md",
-    "Procesamiento/Clases/procesamiento-2026-04-17.md",
-    "Procesamiento/Clases/procesamiento-2026-04-16.md",
-    "Procesamiento/Clases/procesamiento-2026-04-08.md",
-    "Procesamiento/Clases/procesamiento-2026-03-13.md",
-    "Procesamiento/Clases/procesamiento-2026-03-12.md",
-    "Procesamiento/Clases/procesamiento-2026-03-06.md",
-    "Procesamiento/Clases/procesamiento-2026-03-11.md",
-    "Procesamiento/Clases/procesamiento-2026-03-04.md",
-    "Procesamiento/Clases/procesamiento-2026-03-02.md",
-    "Procesamiento/Clases/procesamiento-2026-02-27.md",
-    "Procesamiento/Clases/procesamiento-2026-02-26.md",
-    "Procesamiento/Clases/procesamiento-2026-02-25.md",
-    "Procesamiento/Clases/procesamiento-2026-02-12.md",
-    "Pasted image 20260417162014.png",
-    "Interfaces/Actividades/Act03/Funcion1.jpg"
+    "Sistemas/Proyecto/proyecto-Sistemas.md",
+    "Sistemas/Proyecto/Software.md",
+    "assets/Imagenes/Pasted image 20260417162014.png",
+    "assets/Imagenes/Pasted image 20260602160441.png",
+    "assets/Imagenes/Pasted image 20260602160411.png",
+    "Telecomunicacion/Temas/Unidad 4.md",
+    "Telecomunicacion/Temas/Unidad 4.pdf",
+    "Telecomunicacion/Temas/Unidad 3.md",
+    "Telecomunicacion/Temas/Unidad 3.pdf"
   ]
 }
