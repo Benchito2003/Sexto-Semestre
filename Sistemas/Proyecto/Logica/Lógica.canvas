@@ -1,0 +1,20 @@
+{
+	"nodes":[
+		{"id":"e88d13b5a452eeab","type":"group","x":-420,"y":40,"width":380,"height":460,"label":"Alto Voltaje"},
+		{"id":"4c0b88c379f437e5","x":80,"y":760,"width":614,"height":100,"type":"group","label":"Sensores (retroalimentación)"},
+		{"id":"58e1d9072e452ae4","type":"text","text":"EG2136\n(Driver)","x":-381,"y":60,"width":114,"height":79},
+		{"id":"e8eaefa3e23ba3f9","type":"text","text":"Motor BLDC\n(Actuador)","x":-390,"y":260,"width":133,"height":88},
+		{"id":"3fbe91041e1bd5a4","type":"text","text":"Sensores Hall","x":100,"y":780,"width":250,"height":60},
+		{"id":"a9d234bfa44cf596","type":"text","text":"Resistencias Shunt","x":424,"y":780,"width":250,"height":60},
+		{"id":"0bf252c30a752b2d","type":"text","text":"ESP32-S3\n(Cerebro)","x":15,"y":-345,"width":335,"height":327,"color":"1"},
+		{"id":"c7463894cb9cfadb","x":480,"y":-62,"width":353,"height":244,"color":"4","type":"text","text":"**TASK LIST**\n- [ ] Código para leer sensores Hall (entradas digitales).\n- [ ] Código para leer las Shunt (Entradasanalógicas ADC).\n- [ ] Código para disparar PWD (salidas MCPWM)"}
+	],
+	"edges":[
+		{"id":"f61cdae258a2fd91","fromNode":"0bf252c30a752b2d","fromSide":"left","toNode":"58e1d9072e452ae4","toSide":"top","label":"Señales PWM"},
+		{"id":"587d076460966ad3","fromNode":"58e1d9072e452ae4","fromSide":"bottom","toNode":"e8eaefa3e23ba3f9","toSide":"top","label":"Potencia Trifásica"},
+		{"id":"7fb749f58399fd97","fromNode":"e8eaefa3e23ba3f9","fromSide":"bottom","toNode":"3fbe91041e1bd5a4","toSide":"top","label":"Posición Rotor"},
+		{"id":"01ec21accdfb740a","fromNode":"e8eaefa3e23ba3f9","fromSide":"bottom","toNode":"a9d234bfa44cf596","toSide":"top","label":"Corriente Fase"},
+		{"id":"d3f3e2d988759d9f","fromNode":"3fbe91041e1bd5a4","fromSide":"top","toNode":"0bf252c30a752b2d","toSide":"bottom","label":"Posición / Velocidad"},
+		{"id":"e323d41d67a743be","fromNode":"a9d234bfa44cf596","fromSide":"top","toNode":"0bf252c30a752b2d","toSide":"bottom","label":"Voltaje Análogo"}
+	]
+}

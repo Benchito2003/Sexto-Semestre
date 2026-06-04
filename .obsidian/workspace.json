@@ -11,14 +11,17 @@
             "id": "06f52a666d1bbaf2",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "Sistemas/Proyecto/Software.md",
-                "mode": "source",
-                "source": false
+                "file": "Sistemas/Proyecto/Logica/Torque con shunt.canvas",
+                "viewState": {
+                  "x": 82.60989413517052,
+                  "y": 1080.5794582115957,
+                  "zoom": -0.8000000000000002
+                }
               },
-              "icon": "lucide-file",
-              "title": "Software"
+              "icon": "lucide-layout-dashboard",
+              "title": "Torque con shunt"
             }
           }
         ]
@@ -78,7 +81,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "84fed47b966172b5",
@@ -186,8 +190,29 @@
   },
   "active": "06f52a666d1bbaf2",
   "lastOpenFiles": [
+    "Sistemas/Proyecto/Logica/Conexiones_Secuestro.canvas",
+    "Sistemas/Proyecto/Logica/Torque con shunt.canvas",
+    "Sistemas/Proyecto/Logica/Lógica.canvas",
+    "Sistemas/Proyecto/Logica/Conexiones.canvas",
+    "Sistemas/Proyecto/Logica/Conexiones_secuestro.canvas",
+    "Sistemas/Proyecto/Logica/chip AERTY.md",
+    "Sistemas/Proyecto/Logica/EG2136.md",
+    "Sistemas/Proyecto/Logica/Sin título.md",
+    "Interfaces/Actividades/Act05/Act05.txt",
+    "Interfaces/Actividades/Act04/Act04.txt",
+    "Interfaces/Actividades/Act03/Act03.txt",
+    "Interfaces/Actividades/Act02/Act02.txt",
+    "Sistemas/Proyecto/Logica/Sensor de efecto Hall.md",
+    "Sistemas/Proyecto/Logica/EG2136.PDF",
+    "Sistemas/Proyecto/Logica/Conexiones.png",
+    "Placa Verde.md",
     "Sistemas/Proyecto/proyecto-Sistemas.md",
+    "Puerto UART.md",
+    "Pasted image 20260603050155.png",
+    "Sistemas/Proyecto/Logica",
     "Sistemas/Proyecto/Software.md",
+    "Sistemas/Proyecto/motor.yml~",
+    "Sistemas/Proyecto/motor.yml",
     "assets/Imagenes/Pasted image 20260417162014.png",
     "assets/Imagenes/Pasted image 20260602160441.png",
     "assets/Imagenes/Pasted image 20260602160411.png",

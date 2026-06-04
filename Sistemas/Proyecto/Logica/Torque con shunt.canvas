@@ -1,0 +1,18 @@
+{
+	"nodes":[
+		{"id":"0988d2e7b5d5dbf7","x":-80,"y":-180,"width":250,"height":60,"type":"text","text":"Usuario (Carga)"},
+		{"id":"611058907e09e0aa","x":-140,"y":100,"width":185,"height":67,"type":"text","text":"Resistencia Shunt (sensor)"},
+		{"id":"7c13a7f45728b5b7","x":-64,"y":-60,"width":218,"height":64,"type":"text","text":"Motor (actuador)"},
+		{"id":"933258b229e21ba0","x":-132,"y":240,"width":169,"height":50,"type":"text","text":"Amplificador Op-Amp"},
+		{"id":"f2241f62197c095a","x":-172,"y":360,"width":250,"height":60,"type":"text","text":"ESP31 (ADC/Lógica)"},
+		{"id":"72007879b0ef25bd","x":37,"y":540,"width":250,"height":60,"type":"text","text":"EG2136 (Driver)"}
+	],
+	"edges":[
+		{"id":"85acff88e53a3587","fromNode":"0988d2e7b5d5dbf7","fromSide":"bottom","toNode":"7c13a7f45728b5b7","toSide":"top"},
+		{"id":"0cbd2523b399ff14","fromNode":"7c13a7f45728b5b7","fromSide":"bottom","toNode":"611058907e09e0aa","toSide":"top"},
+		{"id":"41595890850b3c05","fromNode":"611058907e09e0aa","fromSide":"bottom","toNode":"933258b229e21ba0","toSide":"top"},
+		{"id":"fa95ac379540dec2","fromNode":"933258b229e21ba0","fromSide":"bottom","toNode":"f2241f62197c095a","toSide":"top"},
+		{"id":"8bb5aecd6da97fdd","fromNode":"f2241f62197c095a","fromSide":"bottom","toNode":"72007879b0ef25bd","toSide":"top"},
+		{"id":"f20b73afeb167d27","fromNode":"72007879b0ef25bd","fromSide":"top","toNode":"7c13a7f45728b5b7","toSide":"bottom"}
+	]
+}

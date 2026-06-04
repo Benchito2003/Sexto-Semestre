@@ -1,0 +1,19 @@
+connectors:
+  Placa_Motor:
+    type: PCB
+    labels: [Negro, Rojo, Amarillo, Verde, Azul]
+  
+  ESP32:
+    type: Microcontrolador
+    labels: [GND, 5V, GPIO_12, GPIO_14, GPIO_27]
+
+cables:
+  Arnes_Principal:
+    show_equiv: true
+    colors: [BK, RD, YE, GN, BU]
+
+connections:
+  -
+    - Placa_Motor: [1, 2, 3, 4, 5]
+    - Arnes_Principal: [1, 2, 3, 4, 5]
+    - ESP32: [1, 2, 3, 4, 5]

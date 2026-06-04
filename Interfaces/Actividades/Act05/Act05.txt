@@ -1,0 +1,117 @@
+#include "RevEng_PAJ7620.h"
+
+#define PIN_INT   15
+#define PIN_LED   26
+
+// ── Variables modificables fácilmente 
+// Frecuencia de envío (en milisegundos). 
+unsigned long intervalo_envio = 24; 
+// Tiempo máximo (en ms) entre los dos gestos de "acercar" para mandar el recorte
+const unsigned long TIEMPO_MAX_DOBLE_ACERCAR = 2000; 
+
+RevEng_PAJ7620 sensor = RevEng_PAJ7620();
+Gesture gesto;
+
+unsigned long tiempoAnterior = 0;
+const unsigned long DEBOUNCE = 400;
+unsigned long tiempoUltimoEnvio = 0;
+
+// Máquina de estados para las direcciones
+enum Estado { STOP, ARRIBA, ABAJO, IZQUIERDA, DERECHA };
+Estado estadoActual = STOP;
+
+// Variables para controlar el doble gesto
+bool esperandoSegundoAcercar = false;
+unsigned long tiempoUltimoAcercar = 0;
+
+void setup()
+{
+  Serial.begin(115200);
+  pinMode(PIN_INT, INPUT_PULLUP);
+  pinMode(PIN_LED, OUTPUT);
+
+  if( !sensor.begin() )
+  {
+    digitalWrite(PIN_LED, HIGH); // prendemos el LED si hay conexión
+  }
+}
+
+void loop()
+{
+  unsigned long ahora = millis();
+
+  // 1. LECTURA DE GESTOS 
+  if(digitalRead(PIN_INT) == 0)
+  {
+    if(ahora - tiempoAnterior >= DEBOUNCE)
+    {
+      tiempoAnterior = ahora;
+      digitalWrite(PIN_LED, HIGH);
+
+      gesto = sensor.readGesture();
+
+      switch(gesto)
+      {
+        case GES_UP:       
+          esperandoSegundoAcercar = false; // Cancela la espera del doble gesto
+          if(estadoActual == ABAJO) estadoActual = STOP; 
+          else estadoActual = ARRIBA; 
+          break;
+          
+        case GES_DOWN:     
+          esperandoSegundoAcercar = false;
+          if(estadoActual == ARRIBA) estadoActual = STOP; 
+          else estadoActual = ABAJO; 
+          break;
+          
+        case GES_LEFT:     
+          esperandoSegundoAcercar = false;
+          if(estadoActual == DERECHA) estadoActual = STOP; 
+          else estadoActual = IZQUIERDA; 
+          break;
+          
+        case GES_RIGHT:    
+          esperandoSegundoAcercar = false;
+          if(estadoActual == IZQUIERDA) estadoActual = STOP; 
+          else estadoActual = DERECHA; 
+          break;
+        
+        // --- LÓGICA DE DOBLE "ACERCAR" ---
+        case GES_FORWARD:  
+          estadoActual = STOP; // El primer efecto siempre es detener el movimiento
+          
+          // Si ya habíamos acercado recientemente y no hemos superado el tiempo límite
+          if (esperandoSegundoAcercar && (ahora - tiempoUltimoAcercar <= TIEMPO_MAX_DOBLE_ACERCAR)) {
+            Serial.write(50);                 // Es el segundo acercar consecutivo, envía el comando
+            esperandoSegundoAcercar = false;  // Reinicia para necesitar otros 2 gestos para el próximo recorte
+          } else {
+            // Es el primer acercar (o pasó demasiado tiempo desde el último)
+            esperandoSegundoAcercar = true;
+            tiempoUltimoAcercar = ahora;
+          }
+          break;
+          
+        default: break;
+      }
+
+      digitalWrite(PIN_LED, LOW);
+    }
+  }
+
+  // 2. ENVÍO CONTINUO DE COMANDOS SIN RETARDOS
+  if (estadoActual != STOP)
+  {
+    if (ahora - tiempoUltimoEnvio >= intervalo_envio)
+    {
+      tiempoUltimoEnvio = ahora;
+
+      switch(estadoActual) {
+        case ARRIBA:    Serial.write(30); break;
+        case ABAJO:     Serial.write(40); break;
+        case IZQUIERDA: Serial.write(20); break;
+        case DERECHA:   Serial.write(10); break;
+        default: break;
+      }
+    }
+  }
+}
