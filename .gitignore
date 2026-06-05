@@ -1,3 +1,6 @@
+# Ignorar configuraciones de obsidian
+#.obsidian
+
 # Ignorar el estado de la sesión de obsidian
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json

@@ -4,24 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "9b9dbc88b29ca2c5",
+        "id": "401d1ac64c27203b",
         "type": "tabs",
         "children": [
           {
-            "id": "06f52a666d1bbaf2",
+            "id": "16d1279bd8e608c3",
             "type": "leaf",
             "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Sistemas/Proyecto/Logica/Torque con shunt.canvas",
-                "viewState": {
-                  "x": 82.60989413517052,
-                  "y": 1080.5794582115957,
-                  "zoom": -0.8000000000000002
-                }
-              },
-              "icon": "lucide-layout-dashboard",
-              "title": "Torque con shunt"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Nueva pestaña"
             }
           }
         ]
@@ -188,37 +181,48 @@
       "obsidian-excalidraw-plugin:Nuevo Bosquejo": false
     }
   },
-  "active": "06f52a666d1bbaf2",
+  "active": "16d1279bd8e608c3",
   "lastOpenFiles": [
-    "Sistemas/Proyecto/Logica/Conexiones_Secuestro.canvas",
+    "Sistemas/Proyecto/code/src/main.cpp~",
+    "Sistemas/Proyecto/code/compile_commands.json",
+    "Sistemas/Proyecto/code/src/hall_sensor.cpp~",
+    "Sistemas/Proyecto/code/include/hall_sensor.h~",
+    "Sistemas/Proyecto/code/src/pwm_driver.cpp~",
+    "Sistemas/Proyecto/code/src/pwm_driver.cpp",
+    "Sistemas/Proyecto/code/src/hall_sensor.cpp",
+    "Sistemas/Proyecto/code/src/adrc_control.cpp",
+    "Sistemas/Proyecto/code/src/main.cpp",
+    "Sistemas/Proyecto/code/include/pwm_driver.h",
+    "Sistemas/Proyecto/code/include/adrc_control.h",
     "Sistemas/Proyecto/Logica/Torque con shunt.canvas",
+    "Sistemas/Proyecto/docs/proyecto-Sistemas.md",
+    "Sistemas/Proyecto/docs/Logica/chip AERTY.md",
+    "Sistemas/Proyecto/docs/Logica/Torque con shunt.canvas",
+    "Sistemas/Proyecto/docs/Logica/Sin título.md",
+    "Sistemas/Proyecto/docs/Logica/Sensor de efecto Hall.md",
+    "Sistemas/Proyecto/docs/Logica/Lógica.canvas",
+    "Sistemas/Proyecto/docs/Logica/EG2136.md",
+    "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
+    "Sistemas/Proyecto/docs/Logica/Conexiones.png",
+    "Sistemas/Proyecto/docs/Logica/Conexiones.canvas",
+    "Sistemas/Proyecto/Logica/Conexiones_Secuestro.canvas",
     "Sistemas/Proyecto/Logica/Lógica.canvas",
     "Sistemas/Proyecto/Logica/Conexiones.canvas",
     "Sistemas/Proyecto/Logica/Conexiones_secuestro.canvas",
     "Sistemas/Proyecto/Logica/chip AERTY.md",
     "Sistemas/Proyecto/Logica/EG2136.md",
     "Sistemas/Proyecto/Logica/Sin título.md",
-    "Interfaces/Actividades/Act05/Act05.txt",
-    "Interfaces/Actividades/Act04/Act04.txt",
-    "Interfaces/Actividades/Act03/Act03.txt",
-    "Interfaces/Actividades/Act02/Act02.txt",
     "Sistemas/Proyecto/Logica/Sensor de efecto Hall.md",
-    "Sistemas/Proyecto/Logica/EG2136.PDF",
     "Sistemas/Proyecto/Logica/Conexiones.png",
     "Placa Verde.md",
     "Sistemas/Proyecto/proyecto-Sistemas.md",
     "Puerto UART.md",
     "Pasted image 20260603050155.png",
-    "Sistemas/Proyecto/Logica",
     "Sistemas/Proyecto/Software.md",
-    "Sistemas/Proyecto/motor.yml~",
-    "Sistemas/Proyecto/motor.yml",
     "assets/Imagenes/Pasted image 20260417162014.png",
     "assets/Imagenes/Pasted image 20260602160441.png",
     "assets/Imagenes/Pasted image 20260602160411.png",
     "Telecomunicacion/Temas/Unidad 4.md",
-    "Telecomunicacion/Temas/Unidad 4.pdf",
-    "Telecomunicacion/Temas/Unidad 3.md",
-    "Telecomunicacion/Temas/Unidad 3.pdf"
+    "Telecomunicacion/Temas/Unidad 3.md"
   ]
 }
