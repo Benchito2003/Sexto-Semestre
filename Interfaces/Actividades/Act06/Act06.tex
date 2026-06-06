@@ -77,7 +77,7 @@
     
     \vfill
     
-    {\large \textbf{Fecha:} 20 de mayo de 2026} \\
+    {\large \textbf{Fecha:} 5 de Junio de 2026} \\
     \vspace{1cm}
     {\small Xalapa, Enríquez, Ver.} % O la sede correspondiente
 \end{titlepage}
@@ -88,18 +88,64 @@
 % --- EL CUERPO DEL TEXTO (Automáticamente en dos columnas) ---
 
 \section{Introducción al tema.}
+Las Interfaces Hombre-Máquina (HMI) han cambiado continuamente para satisfacer las necesidades de todo tipo de usuarios y han evolucionado más allá de la retroalimentación visual y los estímulos auditivos convencionales, abriendo paso a los sistemas de retroalimentación háptica como herramientas. Estos sistemas permiten recibir información espacial a través del sentido del tacto, convirtiéndose en una alternativa destinada a usuarios con limitaciones sensoriales o visuales. Al sustituir las señales ópticas por estímulos mecánicos localizados en la piel, es posible guiar las acciones motrices de un operador de manera intuitiva y en tiempo real.
+El núcleo del proyecto radica en recibir datos de desviación derecha-izquierda con respecto a una trayectoria y su transformación a una señal de intensidad vibratoria mediante actuadores independientes colocados en extremos corporales opuestos (izquierda y derecha). El operador, sin apoyo visual, percibe la dirección y la intensidad del de la desviación en forma de estímulos vibratorios, respondiendo inmediatamente a través de un joystick que regula la velocidad de corrección en tres niveles.
 
- \subsection{Marco teórico}
+\section{Marco teórico.}
+  \subsection{Interfaces Hápticas.}
+  La tecnología háptica se basa en la estimulación de los mecanorreceptores cutáneos (como los corpúsculos de Pacini y Meissner) para transmitir datos. Para que una interfaz de este tipo funcione correctamente, el usuario debe recibir señales fácilmente diferenciables entre sí entre dos puntos del tacto y ofrecer variaciones detectables del estímulo, permitiendo que el sistema nervioso del usuario procese la señal y ejecute una respuesta psicomotora correctiva.
+
+  \subsection{ESP32 vs Arduino.}
+  Anteriormente, se había optado por utilizar el sistema Arduino Uno sin embargo para esta actividad final se propuso actual con el sistema ESP32 el cual afecta el comportamiento de la interfaz, de cuatro formas diferentes.
+Capacidad de Procesamiento y Concurrencia: Mientras que un Arduino clásico opera con un microcontrolador a 16 MHz en un solo núcleo, el ESP32 cuenta con una arquitectura de 32 bits a 240 MHz de doble núcleo. En sistemas interactivos de tiempo real que implementan un paradigma no bloqueante mediante la evaluación de milisegundos (millis()), la mayor cantidad de ciclos de reloj permite muestrear los dispositivos de entrada, procesar las tramas serie y modular las salidas táctiles con una latencia muy baja, evitando cuellos de botella.
+
+    \subsubsection{Resolución del Convertidor Analógico-Digital (ADC)}
+    El Arduino Uno posee un ADC de 10 bits que traduce el voltaje en un rango discreto de 0 a 1023. El ESP32 eleva esta resolución a 12 bits, generando una escala analógica mucho más amplia, de 0 a 4095. Esta mayor granularidad matemática altera los algoritmos de control, ya que permite definir con extrema precisión la "zona muerta" central del dispositivo de entrada y mapear con mayor finura los umbrales correspondientes a las velocidades requeridas.
+
+    \subsubsection{Modulación por Ancho de Pulso (PWM) Avanzada}
+     A diferencia de la función analogWrite() de Arduino, el ESP32 maneja el PWM a través de un periférico especializado de control de LEDs (LEDC). Este módulo permite configurar por software tanto la frecuencia exacta de conmutación como la resolución en bits del ciclo de trabajo, lo que se traduce en una modulación de intensidad de vibración sumamente lineal, estable y libre de armónicos mecánicos indeseados.
+
+     \subsubsection{Niveles Lógicos y Restricciones de Corriente}
+     Arduino opera de manera estándar a 5V, mientras que el ESP32 es un dispositivo de 3.3V. Esto exige que los potenciómetros de entrada se alimenten estrictamente a 3.3V para evitar el daño al microcontrolador. Adicionalmente, la corriente máxima que puede suministrar un pin GPIO del ESP32 está limitada a aproximadamente 12 mA.
+
+  \subsection{Actuadores Hápticos.}
+  Motores de Masa Rotatoria Excéntrica (ERM) Para la generación de la vibración se emplean micromotores de corriente continua del tipo Masa Rotativa Excéntrica. Estos dispositivos cuentan con un peso descentrado unido a su eje; al aplicar una diferencia de voltaje y corriente, la rotación de la masa descentrada genera una fuerza centrífuga asimétrica que se traduce en vibración mecánica. Una característica crítica de los motores ERM es que la frecuencia y la amplitud de la vibración están físicamente definidas: a mayor voltaje aplicado mediante la señal PWM, el motor gira más rápido (mayor frecuencia) y ejerce más fuerza (mayor amplitud).
+
+  \subsection{Fenómenos de Transmisión Mecánica.}
+  l comportamiento físico de las ondas mecánicas en materiales sólidos representa un desafío de diseño crítico en esté tipo de sistemas. Al intentar integrar el dispositivo de entrada y los actuadores vibratorios en un prototipo en impresión 3D fabricado en ácido poliláctico (PLA), se experimenta el fenómeno de cross-talk o acoplamiento háptico. El PLA, al ser un polímero termoplástico rígido y denso, actúa como un medio conductor mecánico de baja amortiguación, propagando las ondas elásticas generadas por cualquiera de los motores a lo largo de toda la estructura continua. Como consecuencia directa, los estímulos táctiles de los canales izquierdo y derecho se mezclan en la carcasa, provocando que el origen espacial de la señal resulte mecánicamente irreconocible para el usuario.
+A este inconveniente se suma que las tolerancias obstruyen el libre desplazamiento de la palanca, limitando su recorrido angular e impidiendo alcanzar las lecturas de voltaje necesarias para activar las velocidades analógicas más altas en el código. Para mitigar estos efectos, se retiraron los elementos qué causan la interferencia, prescindiendo de la carcasa unificada y aislando los motores de vibración. Al sostener un motor libre en cada mano, se aprovecha la separación anatómica del cuerpo humano como un filtro de señales, restaurando la discriminación estéreo de la información háptica y liberando al joystick de cualquier obstrucción física.
 
 
 \section{Desarrollo de la actividad.}
   \subsection{Librerías.}
+  Como anteriormente se mencionó, se trabajó en el framework \textit{platformIO} en un \textit{ESP32 (classic)} en lugar de arduino con Arduino IDE, por lo que se tiene que imporar la librería \textit{<Arduino.h>}.
   
-  \subsection{Desarrollo del código.}
+  \subsection{Variables y constantes}
+    \subsubsection{Configuración de pines para ESP32}
+    Dentro de esta sección declaramos los pines que vamos a usar apoyándonos de la documentación de los pines del ESP32 (\cite{llamas_esp32_pinout_online}):
+    \begin{itemize}
+      \item \textbf{GPIO34.} Este pin es únicamente entrada analógica \cite{llamas_esp32_pinout_online}, por eso podemos usarla para leer lo que nos entrega VRy del Joystick ( \textbf{Nota:} ocupamos el eje Y del Joystick debido a que resultó ser más cómodo,lo que llevó a reescribir el código).
+      \item \textbf{GPIO18 y GPIO19.} Estos pines al poder soportar las PWM, se utilizaron para modular la vibración de nuestros motores-vibradores.
+    \end{itemize}
+
+    \subsection{Control del tiempo}
+    Como aprendimos en anteriores prácticas, podemos usar \textit{unsigned long} para poder guardar el tiempo actual, el tiempo anterior y el periodo en el queremos que se repita nuestra acción, pudiendo manejar numeros muy grandes y aprovechando todos los espacios de bits gracias a que no estamos ocupando números negativos.
+    
+    \subsubsection{Constantes de velocidad}
+    Esta sección nos permite definir la velocidad de impresión (periodo en milisegundos) desde el principio del código, lo que permite una configuración más sencilla; pues la configuración de velocidad fue manual, probando una por una para determinar cuál es más cómoda.
+
+    \subsubsection{Constantes para la intensidad de vibración}
+    Esta sección tambien nos funciona como configuración pero a la velocidad a la que vibran nuestros motores-vibradores, pudiendo tener virbaciones altas y bajas.
 
   \subsubsection{setup()}
+  Primeramente se inicia la comunciación serial a 115200 baudios, pues es el estándar con el ESP32.
+
+  Establecemos una resolución de 12 bits, para una lectura analógica del pin del Joystick, 
+
+  Configuramos los pines de los motores como pines \textit{OUTPUT}
 
   \subsubsection{loop()}
+  Para el \textit{loop} se utilizaron los conocimientos adquiridos de las anteriores prácticas, utilizando \textit{CASE} y una máquina de estados para evitar el bloqueo, siendo que unicamente cambiamos el estado de nuestra máquina para manejar según el ángulo de nuestro joystick. Igual que en anteriores prácticas, eivtamos el bloqueo que causa \textit{break} utilizando \textit{milis()} en su lugar.
 
 
   \subsection{Código completo}
@@ -108,6 +154,8 @@
   \newpage
   
   \subsection{Armado de Circuito}
+  Las conexiones se realizaron estañando puntas dupont a las puntas de los motores vibradores (compartiendo el uno para GND), simplemente conectando estos pintes como se aprecia en la figura \ref{fig:circuito}.
+
     \begin{figure}[h]
       \centering
       \includegraphics[width=\linewidth]{circuito.jpeg} % \linewidth se ajusta a la columna
@@ -126,22 +174,16 @@
 
 \section{Conclusiones}
 
+Para esta práctica fue bastante útil la experiencia previa ganada en otras actividades. Así mismo, el registro de solo dos direcciones simplificó el sistema de forma sustancial en comparación a otras actividades donde los vectores compuestos por dos direcciones requerían una definición y un comportamiento más preciso. Sin embargo, la decisión de intentar crear un prototipo para embeber esté sistema, a pesar de qué su ergonomía y comodidad de agarre fue positiva, el uso de un material inadecuado y un diseño carente de las consideraciones de los fenómenos físicos representó un reto adicional al tener qué modificar el mismo para lograr qué esté se volviera operable, lo cual denota la importancia de considerar todos elementos adecuados al momento de diseñar una interfaz Hombre-Máquina. Más allá de las complicaciones al agregar un elemento extra, esta actividad demuestra la enorme flexibilidad de opciones y combinaciones qué están disponibles para ofrecer una mejor experiencia a los usuarios, incluso cuando algunas funciones sensoriales pueden estar comprometidas.
+
 
 \newpage{}
 \section{firma de revisión}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{Firma.jpeg} % \linewidth se ajusta a la columna
-    \caption{Firma de revisión}
-    \label{fig:Firma}
-\end{figure}
-
-
+Debido a complicaciones climáticas se anexa el link del video con la evidencia de que el código cumple con la prueba ``seguir ruta''; necesaria para validar la actividad: \\
+\url{https://www.youtube.com/shorts/WbHFZQiSFzA}
 
 
 % --- REFERENCIAS ---
 \printbibliography
-
-
 
 \end{document}

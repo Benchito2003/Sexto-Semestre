@@ -1,21 +1,20 @@
 #include <Arduino.h>
 
 // --- Configuración de Pines para ESP32 ---
-const int VRx = 34;       // Pin analógico (ADC1_CH6) para el eje X del Joystick
+const int VRy = 34;       // Pin analógico (ADC1_CH6) para el eje y del Joystick
 const int motorIzq = 18;  // Pin GPIO para motor vibrador izquierdo (Soporta PWM)
 const int motorDer = 19;  // Pin GPIO para motor vibrador derecho (Soporta PWM)
 
 // --- Variables para control de tiempo ---
 unsigned long tiempoActual;
-unsigned long tiempoAnteriorX = 0;
-unsigned long periodoX = 0;
+unsigned long tiempoAnteriorY = 0;
+unsigned long periodoY = 0;
 
 // --- Constantes de velocidad (Periodo en milisegundos entre envíos) ---
-// Tiempos reducidos para incrementar la agilidad de respuesta
-const unsigned long VEL_BAJA = 300;   // Antes 400
-const unsigned long VEL_MEDIA = 120;  // Antes 200
-const unsigned long VEL_ALTA = 30;    // Antes 50
-const unsigned long VEL_TURBO = 8;    // Antes 15
+const unsigned long VEL_BAJA = 300;
+const unsigned long VEL_MEDIA = 120;
+const unsigned long VEL_ALTA = 30;
+const unsigned long VEL_TURBO = 8;
 
 // --- Constantes para Intensidad de Vibración (PWM de 0 a 255) ---
 const int VIB_BAJA = 100;
@@ -28,7 +27,7 @@ void setup() {
 
   // Configuración del pin analógico en el ESP32 (Resolución a 12 bits: 0-4095)
   analogReadResolution(12); 
-  pinMode(VRx, INPUT);
+  pinMode(VRy, INPUT);
   
   // Configuración de pines de los motores
   pinMode(motorIzq, OUTPUT);
@@ -84,45 +83,45 @@ void loop() {
   }
 
   // 2. LECTURA DEL JOYSTICK Y ENVÍO DE COMANDOS (Control Vehículo)
-  int X = analogRead(VRx);
-  int estadoX = 0;         // 0: Centro, 1: Derecha (10), -1: Izquierda (20)
+  int Y = analogRead(VRy);
+  int estadoY = 0;         // 0: Centro, 1: Derecha (10), -1: Izquierda (20)
   
   // Evaluar hacia la DERECHA
-  if (X > 2200) {
-    estadoX = 1; 
-    if (X < 2800) {
-      periodoX = VEL_BAJA;
-    } else if (X < 3400) {
-      periodoX = VEL_MEDIA;
-    } else if (X < 3900) {
-      periodoX = VEL_ALTA;
+  if (Y > 2200) {
+    estadoY = 1; 
+    if (Y < 2800) {
+      periodoY = VEL_BAJA;
+    } else if (Y < 3400) {
+      periodoY = VEL_MEDIA;
+    } else if (Y < 3900) {
+      periodoY = VEL_ALTA;
     } else {
-      periodoX = VEL_TURBO; // Palanca totalmente a la derecha
+      periodoY = VEL_TURBO; // Palanca totalmente a la derecha
     }
   } 
   // Evaluar hacia la IZQUIERDA
-  else if (X < 1800) {
-    estadoX = -1; 
-    if (X > 1200) {
-      periodoX = VEL_BAJA;
-    } else if (X > 600) {
-      periodoX = VEL_MEDIA;
-    } else if (X > 150) {
-      periodoX = VEL_ALTA;
+  else if (Y < 1800) {
+    estadoY = -1; 
+    if (Y > 1200) {
+      periodoY = VEL_BAJA;
+    } else if (Y > 600) {
+      periodoY = VEL_MEDIA;
+    } else if (Y > 150) {
+      periodoY = VEL_ALTA;
     } else {
-      periodoX = VEL_TURBO; // Palanca totalmente a la izquierda
+      periodoY = VEL_TURBO; // Palanca totalmente a la izquierda
     }
   }
 
   // Gestión del envío de comandos por el puerto serie
-  if (estadoX != 0) {
-    if (tiempoActual - tiempoAnteriorX >= periodoX) {
-      if (estadoX == 1) {
+  if (estadoY != 0) {
+    if (tiempoActual - tiempoAnteriorY >= periodoX) {
+      if (estadoY == 1) {
         Serial.write(10); // Comando para mover a la derecha
-      } else if (estadoX == -1) {
+      } else if (estadoY == -1) {
         Serial.write(20); // Comando para mover a la izquierda
       }
-      tiempoAnteriorX = tiempoActual;
+      tiempoAnteriorY = tiempoActual;
     }
   }
 }

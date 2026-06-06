@@ -1,0 +1,129 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}Arduino.h\PYGZgt{}}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Configuración de Pines para ESP32 \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VRy}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{34}\PYG{p}{;}\PYG{+w}{       }\PYG{c+c1}{// Pin analógico (ADC1\PYGZus{}CH6) para el eje y del Joystick}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{motorIzq}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{18}\PYG{p}{;}\PYG{+w}{  }\PYG{c+c1}{// Pin GPIO para motor vibrador izquierdo (Soporta PWM)}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{motorDer}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{19}\PYG{p}{;}\PYG{+w}{  }\PYG{c+c1}{// Pin GPIO para motor vibrador derecho (Soporta PWM)}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Variables para control de tiempo \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoActual}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{tiempoAnteriorY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Constantes de velocidad (Periodo en milisegundos entre envíos) \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}BAJA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{300}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}MEDIA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{120}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}ALTA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{30}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}TURBO}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{8}\PYG{p}{;}
+
+\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Constantes para Intensidad de Vibración (PWM de 0 a 255) \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}BAJA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}MEDIA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{175}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}ALTA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{255}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{setup}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(}\PYG{l+m+mi}{115200}\PYG{p}{);}
+
+\PYG{+w}{  }\PYG{c+c1}{// Configuración del pin analógico en el ESP32 (Resolución a 12 bits: 0\PYGZhy{}4095)}
+\PYG{+w}{  }\PYG{n}{analogReadResolution}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{VRy}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{INPUT}\PYG{p}{);}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{c+c1}{// Configuración de pines de los motores}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{OUTPUT}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{pinMode}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{OUTPUT}\PYG{p}{);}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{c+c1}{// Asegurarnos de que inician apagados}
+\PYG{+w}{  }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{  }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{loop}\PYG{p}{()}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{tiempoActual}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{millis}\PYG{p}{();}
+
+\PYG{+w}{  }\PYG{c+c1}{// 1. LECTURA DE COMANDOS SERIE (Retroalimentación Háptica)}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{available}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{comandoRecibido}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{read}\PYG{p}{();}
+\PYG{+w}{    }
+\PYG{+w}{    }\PYG{k}{switch}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{comandoRecibido}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Desviación hacia la Izquierda \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{50}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{// BAJA IZQUIERDA}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}BAJA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{60}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{// MEDIA IZQUIERDA}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}MEDIA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{70}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{// ALTA IZQUIERDA}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}ALTA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }
+\PYG{+w}{      }\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Desviación hacia la Derecha \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{80}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{// BAJA DERECHA}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}BAJA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{90}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{// MEDIA DERECHA}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}MEDIA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{:}\PYG{+w}{ }\PYG{c+c1}{// ALTA DERECHA}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}ALTA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{        }
+\PYG{+w}{      }\PYG{c+c1}{// \PYGZhy{}\PYGZhy{}\PYGZhy{} Sin Desviación \PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{+w}{      }\PYG{k}{case}\PYG{+w}{ }\PYG{l+m+mi}{200}\PYG{p}{:}\PYG{+w}{ }
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorIzq}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{n}{analogWrite}\PYG{p}{(}\PYG{n}{motorDer}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{VIB\PYGZus{}NULA}\PYG{p}{);}
+\PYG{+w}{        }\PYG{k}{break}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// 2. LECTURA DEL JOYSTICK Y ENVÍO DE COMANDOS (Control Vehículo)}
+\PYG{+w}{  }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{analogRead}\PYG{p}{(}\PYG{n}{VRy}\PYG{p}{);}
+\PYG{+w}{  }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{         }\PYG{c+c1}{// 0: Centro, 1: Derecha (10), \PYGZhy{}1: Izquierda (20)}
+\PYG{+w}{  }
+\PYG{+w}{  }\PYG{c+c1}{// Evaluar hacia la DERECHA}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{2200}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{2800}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}BAJA}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{3400}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}MEDIA}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{3900}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}ALTA}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}TURBO}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Palanca totalmente a la derecha}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{+w}{  }\PYG{c+c1}{// Evaluar hacia la IZQUIERDA}
+\PYG{+w}{  }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{1800}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{1200}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}BAJA}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{600}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}MEDIA}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{Y}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{150}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}ALTA}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{n}{periodoY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{VEL\PYGZus{}TURBO}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Palanca totalmente a la izquierda}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+
+\PYG{+w}{  }\PYG{c+c1}{// Gestión del envío de comandos por el puerto serie}
+\PYG{+w}{  }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{!=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{    }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{tiempoActual}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{tiempoAnteriorY}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{periodoX}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Comando para mover a la derecha}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }\PYG{k}{else}\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{estadoY}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{\PYGZhy{}1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{        }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{write}\PYG{p}{(}\PYG{l+m+mi}{20}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{// Comando para mover a la izquierda}
+\PYG{+w}{      }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{tiempoAnteriorY}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{tiempoActual}\PYG{p}{;}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{  }\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{MintedVerbatim}
