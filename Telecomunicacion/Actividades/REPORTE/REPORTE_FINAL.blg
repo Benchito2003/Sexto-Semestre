@@ -1,0 +1,9 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'REPORTE_FINAL.blg'
+[69] biber:342> INFO - === mié jun 10, 2026, 00:51:28
+[84] Biber.pm:421> INFO - Reading 'REPORTE_FINAL.bcf'
+[151] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[167] bbl.pm:676> INFO - Writing 'REPORTE_FINAL.bbl' with encoding 'UTF-8'
+[167] bbl.pm:779> INFO - Output to REPORTE_FINAL.bbl
+[167] Biber.pm:132> WARN - The file 'REPORTE_FINAL.bcf' does not contain any citations!
+[167] Biber.pm:134> INFO - WARNINGS: 1
