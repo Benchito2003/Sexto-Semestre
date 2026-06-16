@@ -16,5 +16,73 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{legaspi2021i2c}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=40e5488076a828247769b7337eb8b1c1}{%
+           family={Legaspi},
+           familyi={L\bibinitperiod},
+           given={Mary\bibnamedelima Grace},
+           giveni={M\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=19295181205fe800ab80135fce1c9e6e}{%
+           family={Peña},
+           familyi={P\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Analog Devices}%
+      }
+      \strng{namehash}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{fullhash}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{fullhashraw}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{bibnamehash}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{authorbibnamehash}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{authornamehash}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{authorfullhash}{56b77b3b100af5083a6c6f5ca37fd063}
+      \strng{authorfullhashraw}{56b77b3b100af5083a6c6f5ca37fd063}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Analog Dialogue}
+      \field{month}{11}
+      \field{title}{I2C Communication Protocol: Understanding I2C Primer, PMBus, and SMBus}
+      \field{volume}{55}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://www.analog.com/en/resources/analog-dialogue/articles/i2c-communication-protocol-understanding-i2c-primer-pmbus-and-smbus.html
+      \endverb
+      \verb{url}
+      \verb https://www.analog.com/en/resources/analog-dialogue/articles/i2c-communication-protocol-understanding-i2c-primer-pmbus-and-smbus.html
+      \endverb
+    \endentry
+    \entry{cristina2014implementacion}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=2781adaee32488ee3d3ba2a5ee16c262}{%
+           family={Cristina\bibnamedelima García},
+           familyi={C\bibinitperiod\bibinitdelim G\bibinitperiod},
+           given={Salvador},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{fullhash}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{fullhashraw}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{bibnamehash}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{authorbibnamehash}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{authornamehash}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{authorfullhash}{2781adaee32488ee3d3ba2a5ee16c262}
+      \strng{authorfullhashraw}{2781adaee32488ee3d3ba2a5ee16c262}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Implementación de analizadores de protocolos de comunicaciones SPI, I2C}
+      \field{year}{2014}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

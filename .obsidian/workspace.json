@@ -11,14 +11,17 @@
             "id": "16d1279bd8e608c3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "Interfaces/MOC-Interfaces.md",
-                "mode": "source",
-                "source": false
+                "file": "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
+                "viewState": {
+                  "x": -562.7237946459472,
+                  "y": 380.5241781784441,
+                  "zoom": -1.0829306966643375
+                }
               },
-              "icon": "lucide-file",
-              "title": "MOC-Interfaces"
+              "icon": "lucide-layout-dashboard",
+              "title": "Conexiones_Secuestro"
             }
           }
         ]
@@ -186,6 +189,13 @@
   },
   "active": "16d1279bd8e608c3",
   "lastOpenFiles": [
+    "Telecomunicacion/Actividades/REPORTE/REPORTE_FINAL.tex~",
+    "Sistemas/Proyecto/docs/Logica/Conexiones.canvas",
+    "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
+    "Sistemas/Proyecto/docs/Logica/Lógica.canvas",
+    "Sistemas/Proyecto/docs/Logica/Torque con shunt.canvas",
+    "Sistemas/Proyecto/docs/proyecto-Sistemas.md",
+    "Interfaces/MOC-Interfaces.md",
     "Interfaces/Encuadre del curso.pdf",
     "Sistemas/Proyecto/code/src/main.cpp~",
     "Sistemas/Proyecto/code/compile_commands.json",
@@ -196,18 +206,12 @@
     "Sistemas/Proyecto/code/src/hall_sensor.cpp",
     "Sistemas/Proyecto/code/src/adrc_control.cpp",
     "Sistemas/Proyecto/code/src/main.cpp",
-    "Sistemas/Proyecto/code/include/pwm_driver.h",
     "Sistemas/Proyecto/Logica/Torque con shunt.canvas",
-    "Sistemas/Proyecto/docs/proyecto-Sistemas.md",
     "Sistemas/Proyecto/docs/Logica/chip AERTY.md",
-    "Sistemas/Proyecto/docs/Logica/Torque con shunt.canvas",
     "Sistemas/Proyecto/docs/Logica/Sin título.md",
     "Sistemas/Proyecto/docs/Logica/Sensor de efecto Hall.md",
-    "Sistemas/Proyecto/docs/Logica/Lógica.canvas",
     "Sistemas/Proyecto/docs/Logica/EG2136.md",
-    "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
     "Sistemas/Proyecto/docs/Logica/Conexiones.png",
-    "Sistemas/Proyecto/docs/Logica/Conexiones.canvas",
     "Sistemas/Proyecto/Logica/Conexiones_Secuestro.canvas",
     "Sistemas/Proyecto/Logica/Lógica.canvas",
     "Sistemas/Proyecto/Logica/Conexiones.canvas",
