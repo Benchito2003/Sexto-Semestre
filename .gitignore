@@ -8,6 +8,7 @@
 # Ignorar caché y datos temporales de obsidian
 .obsidian/graph.json
 .obsidian/appearance.json
+.obsidian/plugins/*/data.json
 
 # Ignorar el venv de Procesamiento de señales biomédicas, pero todas las librerias utilizadas se encuenrtan en el requirements.txt
 Procesamiento/Codigos/.venv/
