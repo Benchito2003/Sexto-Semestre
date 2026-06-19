@@ -8,20 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "16d1279bd8e608c3",
+            "id": "6c620a8584d6169b",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
-                "file": "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
+                "file": "Sistemas/Proyecto/docs/Logica/Version_pedal.canvas",
                 "viewState": {
-                  "x": -562.7237946459472,
-                  "y": 380.5241781784441,
-                  "zoom": -1.0829306966643375
+                  "x": 702.2227501353581,
+                  "y": -161.66063726519332,
+                  "zoom": 0
                 }
               },
               "icon": "lucide-layout-dashboard",
-              "title": "Conexiones_Secuestro"
+              "title": "Version_pedal"
             }
           }
         ]
@@ -187,13 +187,21 @@
       "obsidian-excalidraw-plugin:Nuevo Bosquejo": false
     }
   },
-  "active": "16d1279bd8e608c3",
+  "active": "6c620a8584d6169b",
   "lastOpenFiles": [
-    "Telecomunicacion/Actividades/REPORTE/REPORTE_FINAL.tex~",
-    "Sistemas/Proyecto/docs/Logica/Conexiones.canvas",
-    "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
     "Sistemas/Proyecto/docs/Logica/Lógica.canvas",
+    "Sistemas/Proyecto/docs/Logica/Version_pedal.canvas",
     "Sistemas/Proyecto/docs/Logica/Torque con shunt.canvas",
+    "Sistemas/Proyecto/docs/Logica/chip AERTY.md",
+    "Sistemas/Proyecto/docs/Logica/EG2136.md",
+    "Sistemas/Proyecto/docs/Logica/Conexiones.canvas",
+    "Sistemas/Proyecto/docs/datasheets/EG2136.PDF.part",
+    "Sistemas/Proyecto/docs/datasheets/EG2136.PDF",
+    "Procesamiento/Clases/procesamiento-2026-05-06.md",
+    "Sistemas/Proyecto/docs/Logica/Transistores.md",
+    "Sistemas/Proyecto/docs/Logica/Conexiones_Secuestro.canvas",
+    "Sistemas/Proyecto/docs/datasheets",
+    "Telecomunicacion/Actividades/REPORTE/REPORTE_FINAL.tex~",
     "Sistemas/Proyecto/docs/proyecto-Sistemas.md",
     "Interfaces/MOC-Interfaces.md",
     "Interfaces/Encuadre del curso.pdf",
@@ -202,15 +210,9 @@
     "Sistemas/Proyecto/code/src/hall_sensor.cpp~",
     "Sistemas/Proyecto/code/include/hall_sensor.h~",
     "Sistemas/Proyecto/code/src/pwm_driver.cpp~",
-    "Sistemas/Proyecto/code/src/pwm_driver.cpp",
-    "Sistemas/Proyecto/code/src/hall_sensor.cpp",
-    "Sistemas/Proyecto/code/src/adrc_control.cpp",
-    "Sistemas/Proyecto/code/src/main.cpp",
     "Sistemas/Proyecto/Logica/Torque con shunt.canvas",
-    "Sistemas/Proyecto/docs/Logica/chip AERTY.md",
     "Sistemas/Proyecto/docs/Logica/Sin título.md",
     "Sistemas/Proyecto/docs/Logica/Sensor de efecto Hall.md",
-    "Sistemas/Proyecto/docs/Logica/EG2136.md",
     "Sistemas/Proyecto/docs/Logica/Conexiones.png",
     "Sistemas/Proyecto/Logica/Conexiones_Secuestro.canvas",
     "Sistemas/Proyecto/Logica/Lógica.canvas",

@@ -1,7 +1,7 @@
 ---
 tags:
   - Apunte
-Materia:
+Materia: "[[MOC-Procesamiento|Procesamiento de señales Biomédicas]]"
 Fecha: 2026-05-06
 ---
 
