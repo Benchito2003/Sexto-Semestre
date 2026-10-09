@@ -4,7 +4,8 @@
 		{"id":"5ea986cd9dd44b73","type":"group","x":770,"y":-326,"width":400,"height":400,"color":"4","label":"Motor"},
 		{"id":"bafb5c19a42f1cab","type":"text","text":"Pedal","x":-320,"y":60,"width":145,"height":50,"color":"4"},
 		{"id":"7588d3145d28a4bb","type":"text","text":"Puerto UART","x":-40,"y":-215,"width":175,"height":54},
-		{"id":"b291f8289c2fe144","type":"text","text":"Sensores Hall","x":780,"y":-260,"width":190,"height":60}
+		{"id":"b291f8289c2fe144","type":"text","text":"Sensores Hall","x":780,"y":-260,"width":190,"height":60},
+		{"id":"6967e622d38794ab","x":525,"y":-242,"width":250,"height":60,"type":"text","text":"daaeda"}
 	],
 	"edges":[]
 }
